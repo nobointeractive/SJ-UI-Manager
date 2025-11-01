@@ -1,0 +1,10 @@
+{
+    "PanelHolderTypes": [
+        { "label": "Blank", "value": 0 },
+        { "label": "Plain", "value": 1 }
+    ],
+    "PanelAnimatorTypes": [
+        { "label": "None", "value": 0 },
+        { "label": "Fade", "value": 1 }
+    ]
+}

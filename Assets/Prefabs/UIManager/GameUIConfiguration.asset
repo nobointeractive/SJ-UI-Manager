@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1d0d675b1364afc9974b1d996e7c6a, type: 3}
+  m_Name: GameUIConfiguration
+  m_EditorClassIdentifier: Assembly-CSharp::GameUIConfiguration
+  panels:
+  - {fileID: 2862851964968701737, guid: 56fe7a04e449849c79c4c06e9e0e65d3, type: 3}
+  panelHolders:
+  - {fileID: 5687334237881962354, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
+  - {fileID: 4164337836052616691, guid: 287019c71d5ee4a2f8d745afcfed2394, type: 3}
+  panelAnimators:
+  - {fileID: 1731520655893266349, guid: 4f7237563c9e14a539d66b880db47650, type: 3}
+  - {fileID: 1731520655893266349, guid: 730918b2b93db45b2aee1eb9cf5ca4cd, type: 3}
