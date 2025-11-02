@@ -15,6 +15,8 @@ public class AttributeRegistryType
 
     public List<DropdownEntry> PanelHolderTypes;
     public List<DropdownEntry> PanelAnimatorTypes;
+    public List<DropdownEntry> WidgetLayoutStates;
+    public List<DropdownEntry> WidgetAnimationTypes;
 }
 
 public static class AttributeRegistry
@@ -54,7 +56,15 @@ public static class AttributeRegistry
         {
             return data.PanelAnimatorTypes;
         }
-
+        else if (providerName == "WidgetLayoutStates")
+        {
+            return data.WidgetLayoutStates;
+        }
+        else if (providerName == "WidgetAnimationTypes")
+        {
+            return data.WidgetAnimationTypes;
+        }
+        
         return null;
     }
 }

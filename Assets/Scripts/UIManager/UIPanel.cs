@@ -24,17 +24,25 @@ public class UIPanel : MonoBehaviour
     [IntDropdown("PanelAnimatorTypes")]
     public int PanelAnimatorType;
 
+    [IntDropdown("WidgetLayoutStates")]
+    public int WidgetLayoutState;
+
     [SerializeField] private List<UIKeyValuePair> staticParameters = new List<UIKeyValuePair>();
+    private Dictionary<string, string> _staticParametersDict;
     public Dictionary<string, string> StaticParameters
     {
         get
         {
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            if (_staticParametersDict != null)
+            {
+                return _staticParametersDict;
+            }
+            _staticParametersDict = new Dictionary<string, string>();
             foreach (var pair in staticParameters)
             {
-                parameters[pair.key] = pair.value;
+                _staticParametersDict[pair.key] = pair.value;
             }
-            return parameters;
+            return _staticParametersDict;
         }
     }
 

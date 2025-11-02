@@ -1,30 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UIWidgetLayoutState
+{
+    HideAll = 1,
+    ShowAll = 2,
+    CoinsBarOnly = 4,
+    StarsBarOnly = 8
+}
+
 public class MainMenuSceneController : MonoBehaviour
 {
-    public GameUIConfiguration uiConfiguration;
+    public UIConfiguration uiConfiguration;
+    public UIWidgetLayout widgetLayout;
 
     void Awake()
     {
-        UISceneManager.Instance.Initialize(uiConfiguration);
+        UISceneManager.Instance.Initialize(uiConfiguration, widgetLayout);
+        UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.HideAll);
+        UISceneManager.Instance.WidgetLayout.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        UISceneManager.Instance.ShowPanel(uiConfiguration.SplashPanelIndex, new Dictionary<string, object>
+        UISceneManager.Instance.ShowPanel("Splash", new Dictionary<string, object>
         {
             { "OnComplete", new System.Action(ShowMainMenu) }
-        });        
+        });
     }
 
     public void ShowMainMenu()
     {
-        UISceneManager.Instance.ShowPanel(uiConfiguration.SettingsPanelIndex);
-    }
-
-    public void ShowSettings()
-    {
-        UISceneManager.Instance.ShowPanel(uiConfiguration.SettingsPanelIndex);
+        UISceneManager.Instance.WidgetLayout.gameObject.SetActive(true);
+        UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.ShowAll);
     }
 }

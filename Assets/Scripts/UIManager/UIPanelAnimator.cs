@@ -6,14 +6,20 @@ public class UIPanelAnimator : MonoBehaviour
     public virtual float Show(UIPanel panel)
     {
         if (panel == null) return 0;
-        panel.gameObject.SetActive(true);
+        foreach (var target in panel.PanelHolder.AnimatableTargets)
+        {
+            target.gameObject.SetActive(true);
+        }
         return 0;
     }
 
     public virtual float Hide(UIPanel panel)
     {
         if (panel == null) return 0;
-        panel.gameObject.SetActive(false);
+        foreach (var target in panel.PanelHolder.AnimatableTargets)
+        {
+            target.gameObject.SetActive(false);
+        }
         return 0;
     }
 }

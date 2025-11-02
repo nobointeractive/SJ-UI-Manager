@@ -28,6 +28,7 @@ public class UIPanelController : MonoBehaviour
 
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
+    public UIWidgetLayout WidgetLayout { get; private set; }
 
     private List<UIPanel> panelStack = new List<UIPanel>();
     private List<UIPanelCommand> commandQueue = new List<UIPanelCommand>();
@@ -50,16 +51,22 @@ public class UIPanelController : MonoBehaviour
             {
                 ProcessPanelsToRemove();
                 ProcessCommandQueue();
+
+                if (commandQueue.Count == 0 && panelStack.Count == 0)
+                {
+                    WidgetLayout.SetToDefaultLayoutState();
+                }
             }
         }    
     }
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas)
+    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetLayout widgetLayout)
     {
         UIConfiguration = uiConfiguration;
         MainCanvas = mainCanvas;
+        WidgetLayout = widgetLayout;
     }
     #endregion
 
@@ -101,8 +108,10 @@ public class UIPanelController : MonoBehaviour
         panel.Initialize(this, holder, parameters);
         holder.Initialize(panel);
         panelStack.Add(panel);
+        panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
         animationTimeout = animator.Show(panel);
+        WidgetLayout.SetLayoutState(panel.WidgetLayoutState);
 
         isRunningTransition = false;
     }
@@ -114,9 +123,11 @@ public class UIPanelController : MonoBehaviour
             isRunningTransition = false;
             return;
         }
+        panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
         UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)panel.PanelAnimatorType];
         animationTimeout = animator.Show(panel);
+        WidgetLayout.SetLayoutState(panel.WidgetLayoutState);
         isRunningTransition = false;
     }
 
@@ -165,9 +176,11 @@ public class UIPanelController : MonoBehaviour
 
         if (topPanel != null && topPanel.VisibilityState == UIPanelVisibilityState.Hidden)
         {
-            topPanel.VisibilityState = UIPanelVisibilityState.Shown;
+            topPanel.transform.SetAsLastSibling();
+            topPanel.VisibilityState = UIPanelVisibilityState.Shown;            
             UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)topPanel.PanelAnimatorType];
             animationTimeout = animator.Show(topPanel);
+            WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
         }
 
         isRunningTransition = false;
@@ -215,6 +228,7 @@ public class UIPanelController : MonoBehaviour
                 holderPool[holderIndex] = new Stack<UIPanelHolder>();
             }
             panel.PanelHolder.transform.SetParent(this.transform, false);
+            panel.PanelHolder.gameObject.SetActive(false);
             holderPool[holderIndex].Push(panel.PanelHolder);
 
             var panelName = panel.name;
@@ -244,6 +258,10 @@ public class UIPanelController : MonoBehaviour
         if (pool.Count > 0)
         {
             holder = pool.Pop();
+            holder.transform.SetParent(parent, false);
+            holder.transform.localPosition = Vector3.zero;
+            holder.transform.localRotation = Quaternion.identity;
+            holder.transform.localScale = Vector3.one;
         }
         else
         {
@@ -274,6 +292,7 @@ public class UIPanelController : MonoBehaviour
         else
         {
             panel = Instantiate(prefab, parent);
+            panel.name = prefab.name;
             panel.gameObject.SetActive(true);
         }
                 

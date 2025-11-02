@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuSceneController
   uiConfiguration: {fileID: 11400000, guid: 3cf5185e49cc04533877aa30a6068c4e, type: 2}
+  widgetLayout: {fileID: 1544698199795254650, guid: d0a1e9121dc42433e847c56cfd48fa11, type: 3}
 --- !u!4 &549915978
 Transform:
   m_ObjectHideFlags: 0

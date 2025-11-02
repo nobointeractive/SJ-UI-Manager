@@ -7,5 +7,16 @@
         { "label": "None", "value": 0 },
         { "label": "Fade", "value": 1 },
         { "label": "Scale", "value": 2 }
+    ],
+    "WidgetLayoutStates": [
+        { "label": "Hide All", "value": 1 },
+        { "label": "Show All", "value": 2 },
+        { "label": "Coins Bar Only", "value": 4 },
+        { "label": "Stars Bar Only", "value": 8 }
+    ],
+    "WidgetAnimationTypes": [
+        { "label": "None", "value": 0 },
+        { "label": "Left Slide", "value": 1 },
+        { "label": "Right Slide", "value": 2 }
     ]
 }

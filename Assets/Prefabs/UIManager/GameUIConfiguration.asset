@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd1d0d675b1364afc9974b1d996e7c6a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dd0c40e921a54740aaf147507aa6be1, type: 3}
   m_Name: GameUIConfiguration
   m_EditorClassIdentifier: Assembly-CSharp::GameUIConfiguration
   panels:
-  - {fileID: 2862851964968701737, guid: 56fe7a04e449849c79c4c06e9e0e65d3, type: 3}
-  - {fileID: 5152494583042993419, guid: d227e85aa95d64ce1be99d3c8665fa0a, type: 3}
+  - key: Splash
+    prefab: {fileID: 2862851964968701737, guid: 56fe7a04e449849c79c4c06e9e0e65d3, type: 3}
+  - key: Settings
+    prefab: {fileID: 5152494583042993419, guid: d227e85aa95d64ce1be99d3c8665fa0a, type: 3}
   panelHolders:
   - {fileID: 5687334237881962354, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
   - {fileID: 3839705701060809302, guid: 287019c71d5ee4a2f8d745afcfed2394, type: 3}
@@ -22,3 +24,8 @@ MonoBehaviour:
   - {fileID: 7653624024412517167, guid: 4f7237563c9e14a539d66b880db47650, type: 3}
   - {fileID: 1731520655893266349, guid: 730918b2b93db45b2aee1eb9cf5ca4cd, type: 3}
   - {fileID: 8805177411636042528, guid: 288aeeaf287a74dd19b1e9155253d6a9, type: 3}
+  widgetAnimators:
+  - {fileID: -1640267252996894707, guid: 63b5e9d0342b14c1a900adf2a9d035e5, type: 3}
+  - {fileID: 4862450010085421958, guid: 8850ecef1c8a34a00a5261d0d46672a9, type: 3}
+  - {fileID: 4701170242263289086, guid: 7d88d56f1e8d34b6aa6837408a8a542d, type: 3}
+  DefaultWidgetLayoutState: 2
