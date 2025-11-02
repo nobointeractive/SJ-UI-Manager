@@ -16,4 +16,17 @@ public class GameUIConfiguration : UIConfiguration
             return splashPanelIndex;
         }
     }
+
+    private int settingsPanelIndex = -1;
+    public int SettingsPanelIndex
+    {
+        get
+        {
+            if (settingsPanelIndex == -1)
+            {
+                settingsPanelIndex = Panels.FindIndex(panel => panel.name == "SettingsPanel");
+            }
+            return settingsPanelIndex;
+        }
+    }
 }

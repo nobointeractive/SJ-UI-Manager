@@ -5,6 +5,7 @@
     ],
     "PanelAnimatorTypes": [
         { "label": "None", "value": 0 },
-        { "label": "Fade", "value": 1 }
+        { "label": "Fade", "value": 1 },
+        { "label": "Scale", "value": 2 }
     ]
 }

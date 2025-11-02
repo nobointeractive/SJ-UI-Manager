@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,20 +31,26 @@ public class UIPanelController : MonoBehaviour
 
     private List<UIPanel> panelStack = new List<UIPanel>();
     private List<UIPanelCommand> commandQueue = new List<UIPanelCommand>();
+    private List<UIPanel> panelsToRemove = new List<UIPanel>();
     private Dictionary<int, Stack<UIPanelHolder>> holderPool = new Dictionary<int, Stack<UIPanelHolder>>();
     private Dictionary<string, Stack<UIPanel>> panelPool = new Dictionary<string, Stack<UIPanel>>();
     private float animationTimeout = 0f;
+    private bool isRunningTransition = false;
 
     #region Life cycle Methods
     void Update()
     {
-        if (animationTimeout > 0f)
+        if (!isRunningTransition)
         {
-            animationTimeout -= Time.deltaTime;
-        }
-        else
-        {
-            ProcessCommandQueue();
+            if (animationTimeout > 0f)
+            {
+                animationTimeout -= Time.deltaTime;
+            }
+            else
+            {
+                ProcessPanelsToRemove();
+                ProcessCommandQueue();
+            }
         }    
     }
     #endregion
@@ -59,66 +66,113 @@ public class UIPanelController : MonoBehaviour
     #region Panel Management Methods
     public void ShowPanel(UIPanel prefab, Dictionary<string, object> parameters = null)
     {
-        var command = new UIPanelCommand(UIPanelCommand.CommandType.ShowNew, prefab, parameters);
-        if (panelStack.Count == 0)
-        {
-            commandQueue.Add(command);
-        }
-        else
-        {
-            var hidePreviousCommand = new UIPanelCommand(UIPanelCommand.CommandType.HideOld, panelStack[panelStack.Count - 1]);
-            commandQueue.Add(hidePreviousCommand);
-            commandQueue.Add(command);
-        }
+        var command = new UIPanelCommand(UIPanelCommand.CommandType.ShowNew, prefab, parameters);        
+        commandQueue.Add(command);
     }
 
     public void ClosePanel(UIPanel panel)
     {
-        var command = new UIPanelCommand(UIPanelCommand.CommandType.CloseOld, panel);
-        if (panelStack.Count == 0)
-        {
-            commandQueue.Add(command);
-        }
-        else
-        {
-            commandQueue.Add(command);
-            var showPreviousCommand = new UIPanelCommand(UIPanelCommand.CommandType.ShowOld, panelStack[panelStack.Count - 1]);            
-            commandQueue.Add(showPreviousCommand);
-        }
+        var command = new UIPanelCommand(UIPanelCommand.CommandType.CloseOld, panel);        
+        commandQueue.Add(command);
     }
 
-    private void DoShowNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
+    private IEnumerator DoShowNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
     {
+        UIPanelAnimator animator;
+
+        if (panelStack.Count > 0)
+        {
+            var prevPanel = panelStack[panelStack.Count - 1];
+            if (prevPanel.VisibilityState == UIPanelVisibilityState.Shown)
+            {
+                prevPanel.VisibilityState = UIPanelVisibilityState.Hidden;
+                animator = UIConfiguration.PanelAnimators[(int)prevPanel.PanelAnimatorType];
+                animationTimeout = animator.Hide(prevPanel);
+                if (animationTimeout > 0f)
+                {
+                    yield return new WaitForSeconds(animationTimeout);
+                }
+            }
+        }
+
         UIPanelHolder holder = CreateNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
         UIPanel panel = CreateNewPanelInstance(prefab, holder.HolderTransform);
-        UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)prefab.PanelAnimatorType];
+        animator = UIConfiguration.PanelAnimators[(int)prefab.PanelAnimatorType];
         panel.Initialize(this, holder, parameters);
+        holder.Initialize(panel);
         panelStack.Add(panel);
+        panel.VisibilityState = UIPanelVisibilityState.Shown;
         animationTimeout = animator.Show(panel);
+
+        isRunningTransition = false;
     }
 
     private void DoShowOldPanel(UIPanel panel)
     {
-        if (!panelStack.Contains(panel)) return;
-        UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)panel.PanelAnimatorType];     
+        if ((!panelStack.Contains(panel)) || panel.VisibilityState == UIPanelVisibilityState.Shown)
+        {
+            isRunningTransition = false;
+            return;
+        }
+        panel.VisibilityState = UIPanelVisibilityState.Shown;
+        UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)panel.PanelAnimatorType];
         animationTimeout = animator.Show(panel);
+        isRunningTransition = false;
     }
 
     private void DoHideOldPanel(UIPanel panel)
     {
-        if (!panelStack.Contains(panel)) return;
+        if ((!panelStack.Contains(panel)) || panel.VisibilityState == UIPanelVisibilityState.Hidden)
+        {
+            isRunningTransition = false;
+            return;
+        }
+        panel.VisibilityState = UIPanelVisibilityState.Hidden;
         UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)panel.PanelAnimatorType];
         animationTimeout = animator.Hide(panel);
     }
 
-    private void DoCloseOldPanel(UIPanel panel)
+    private IEnumerator DoCloseOldPanel(UIPanel panel)
     {
-        if (!panelStack.Contains(panel)) return;
-        UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)panel.PanelAnimatorType];
-        panelStack.Remove(panel);
-        animationTimeout = animator.Hide(panel);
+        if (!panelStack.Contains(panel))
+        {
+            isRunningTransition = false;
+            yield break;
+        }
+
+        panelStack.Remove(panel);        
+        
+        UIPanel topPanel = null;
+        if (panelStack.Count > 0)
+        {
+            topPanel = panelStack[panelStack.Count - 1];
+        }
+
+        if (panel.VisibilityState == UIPanelVisibilityState.Shown)
+        {
+            panel.gameObject.SendMessage("OnPanelClosed", SendMessageOptions.DontRequireReceiver);
+
+            panel.VisibilityState = UIPanelVisibilityState.Hidden;
+            UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)panel.PanelAnimatorType];
+            animationTimeout = animator.Hide(panel);
+            yield return new WaitForSeconds(animationTimeout);
+            panelsToRemove.Add(panel);
+        }
+        else if (panel.VisibilityState == UIPanelVisibilityState.Hidden)
+        {
+            panelsToRemove.Add(panel);
+        }        
+
+        if (topPanel != null && topPanel.VisibilityState == UIPanelVisibilityState.Hidden)
+        {
+            topPanel.VisibilityState = UIPanelVisibilityState.Shown;
+            UIPanelAnimator animator = UIConfiguration.PanelAnimators[(int)topPanel.PanelAnimatorType];
+            animationTimeout = animator.Show(topPanel);
+        }
+
+        isRunningTransition = false;
     }
-    
+
     private void ProcessCommandQueue()
     {
         if (commandQueue.Count == 0) return;
@@ -126,21 +180,55 @@ public class UIPanelController : MonoBehaviour
         var command = commandQueue[0];
         commandQueue.RemoveAt(0);
 
+        isRunningTransition = true;
         switch (command.Type)
         {
             case UIPanelCommand.CommandType.ShowNew:
-                DoShowNewPanel(command.Panel, command.Parameters);
+                StartCoroutine(DoShowNewPanel(command.Panel, command.Parameters));
                 break;
             case UIPanelCommand.CommandType.HideOld:
                 DoHideOldPanel(command.Panel);
                 break;
             case UIPanelCommand.CommandType.CloseOld:
-                DoCloseOldPanel(command.Panel);
+                StartCoroutine(DoCloseOldPanel(command.Panel));
                 break;
             case UIPanelCommand.CommandType.ShowOld:
                 DoShowOldPanel(command.Panel);
                 break;
         }
+    }
+    
+    private void ProcessPanelsToRemove()
+    {
+        if (panelsToRemove.Count == 0) return;
+
+        foreach (var panel in panelsToRemove)
+        {
+            if (panel == null || panel.VisibilityState == UIPanelVisibilityState.Closed)
+            {
+                continue;
+            }
+
+            var holderIndex = panel.PanelHolderType;
+            if (!holderPool.ContainsKey(holderIndex))
+            {
+                holderPool[holderIndex] = new Stack<UIPanelHolder>();
+            }
+            panel.PanelHolder.transform.SetParent(this.transform, false);
+            holderPool[holderIndex].Push(panel.PanelHolder);
+
+            var panelName = panel.name;
+            if (!panelPool.ContainsKey(panelName))
+            {
+                panelPool[panelName] = new Stack<UIPanel>();
+            }
+            panel.transform.SetParent(this.transform, false);
+
+            panel.VisibilityState = UIPanelVisibilityState.Closed;
+            panelPool[panelName].Push(panel);            
+        }
+
+        panelsToRemove.Clear();
     }
 
     private UIPanelHolder CreateNewPanelHolderInstance(int panelHolderIndex, Transform parent)
@@ -178,14 +266,17 @@ public class UIPanelController : MonoBehaviour
         if (pool.Count > 0)
         {
             panel = pool.Pop();
+            panel.transform.SetParent(parent, false);
+            panel.transform.localPosition = Vector3.zero;
+            panel.transform.localRotation = Quaternion.identity;
+            panel.transform.localScale = Vector3.one;
         }
         else
         {
             panel = Instantiate(prefab, parent);
+            panel.gameObject.SetActive(true);
         }
-
-        panel.gameObject.SetActive(true);
-        panel.transform.SetParent(parent, false);
+                
         return panel;
     }
     #endregion

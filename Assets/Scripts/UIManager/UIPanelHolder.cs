@@ -7,4 +7,16 @@ public class UIPanelHolder : MonoBehaviour
 
     public Transform HolderTransform => holderTransform;
     public Transform[] AnimatableTargets => animatableTargets;
+
+    protected UIPanel panel;
+
+    public virtual void Initialize(UIPanel panel)
+    {
+        this.panel = panel;
+    }
+
+    public void ClosePanel()
+    {
+        panel?.ClosePanel();
+    }
 }

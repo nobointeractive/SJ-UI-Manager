@@ -1,5 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class UIKeyValuePair
+{
+    public string key;
+    public string value;
+}
+
+public enum UIPanelVisibilityState
+{
+    Shown,
+    Hidden,
+    Closed
+}
 
 public class UIPanel : MonoBehaviour
 {
@@ -8,6 +23,22 @@ public class UIPanel : MonoBehaviour
 
     [IntDropdown("PanelAnimatorTypes")]
     public int PanelAnimatorType;
+
+    [SerializeField] private List<UIKeyValuePair> staticParameters = new List<UIKeyValuePair>();
+    public Dictionary<string, string> StaticParameters
+    {
+        get
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            foreach (var pair in staticParameters)
+            {
+                parameters[pair.key] = pair.value;
+            }
+            return parameters;
+        }
+    }
+
+    [HideInInspector] public UIPanelVisibilityState VisibilityState { get; set; }
 
     private UIPanelHolder panelHolder;
     private UIPanelController panelController;
@@ -27,10 +58,17 @@ public class UIPanel : MonoBehaviour
     }
     #endregion
 
-    #region Unity Event Handlers
-    private void OnClosePanel()
+    #region Public Methods
+    public void ClosePanel()
     {
         panelController.ClosePanel(this);
+    }
+    #endregion
+
+    #region Unity Event Handlers
+    public void OnClosePanel()
+    {
+        ClosePanel();
     }
     #endregion
 }

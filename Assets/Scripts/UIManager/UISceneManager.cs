@@ -62,10 +62,10 @@ public class UISceneManager : MonoBehaviour
     #endregion
 
     #region Panel Management Methods
-    public void ShowPanel(int panelIndex)
+    public void ShowPanel(int panelIndex, Dictionary<string, object> parameters = null)
     {
         UIPanel prefab = UIConfiguration.Panels[panelIndex];        
-        panelController.ShowPanel(prefab);
+        panelController.ShowPanel(prefab, parameters);
     }
     #endregion
 }
