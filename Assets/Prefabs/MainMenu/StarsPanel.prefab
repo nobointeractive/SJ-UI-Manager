@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I am settings panel
+  m_text: I am stars panel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -257,8 +257,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8755101699476845601}
-        m_TargetAssemblyTypeName: SettingsPanelController, Assembly-CSharp
+      - m_Target: {fileID: 2682024644560783519}
+        m_TargetAssemblyTypeName: StarsPanelController, Assembly-CSharp
         m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -415,9 +415,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1460442026762183316}
   - component: {fileID: 5152494583042993419}
-  - component: {fileID: 8755101699476845601}
+  - component: {fileID: 2682024644560783519}
   m_Layer: 5
-  m_Name: SettingsPanel
+  m_Name: StarsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,8 +461,8 @@ MonoBehaviour:
   WidgetLayoutState: 1
   staticParameters:
   - key: Title
-    value: Settings
---- !u!114 &8755101699476845601
+    value: Stars
+--- !u!114 &2682024644560783519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -471,6 +471,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9004071210333755999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d26786cb8e6f48bcad04bd333dfd94b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2697b201de0fd46ee9188c94292f6eaa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SettingsPanelController
+  m_EditorClassIdentifier: Assembly-CSharp::StarsPanelController

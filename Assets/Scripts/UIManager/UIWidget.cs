@@ -15,14 +15,13 @@ public class UIWidget : UIAnimatable
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
-    public UIAnimator Animator { get; private set; }
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
     private float animationTimeout = 0f;
 
     public void Initialize(UIAnimator animator)
     {
-        Animator = animator;
+        animator.Initialize(this);
     }
 
     public void Update()

@@ -4,6 +4,23 @@ using System.Linq;
 
 public class PanelFadeAnimator : UIAnimator
 {
+    public override void Initialize(UIAnimatable animatable)
+    {
+        if (animatable == null) return;
+        foreach (var target in animatable.AnimatableTargets)
+        {
+            var cg = target.GetComponent<CanvasGroup>();
+            if (cg == null)
+            {
+                cg = target.gameObject.AddComponent<CanvasGroup>();
+            }
+            cg.alpha = 0;
+        }
+
+        UIAnimator animator = Instantiate<UIAnimator>(this, animatable.transform);
+        animatable.Animator = animator;
+    }
+
     public override float Show(UIAnimatable animatable)
     {
         if (animatable == null) return 0;

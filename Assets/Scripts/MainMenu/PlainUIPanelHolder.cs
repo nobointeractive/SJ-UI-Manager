@@ -6,9 +6,9 @@ public class PlainUIPanelHolder : UIPanelHolder
     [Header("References")]
     [SerializeField] private TextMeshProUGUI titleText;
 
-    public override void Initialize(UIPanel panel)
+    public override void Initialize(UIAnimator animator, UIPanel panel)
     {
-        base.Initialize(panel);
+        base.Initialize(animator, panel);
 
         var staticParameters = panel.StaticParameters;
         if (staticParameters != null && staticParameters.ContainsKey("Title"))

@@ -16,14 +16,13 @@ public enum UICanvasLayer
 public class UISceneManager : MonoBehaviour
 {
     [Header("References")]
-    public Canvas MainCanvas;
-
-    private UIPanelController panelController;
+    public Canvas MainCanvas;    
 
     public UIConfiguration UIConfiguration { get; private set; }
     public UIWidgetLayout WidgetLayout { get; private set; }
 
     private List<Canvas> canvasLayers = new List<Canvas>();
+    private UIPanelController panelController;
 
     #region Singleton Pattern
     private static UISceneManager _instance;
