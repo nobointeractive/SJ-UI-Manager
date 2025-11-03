@@ -3,20 +3,17 @@
         { "label": "Blank", "value": 0 },
         { "label": "Plain", "value": 1 }
     ],
-    "PanelAnimatorTypes": [
+    "AnimationTypes": [
         { "label": "None", "value": 0 },
         { "label": "Fade", "value": 1 },
-        { "label": "Scale", "value": 2 }
+        { "label": "Scale", "value": 2 },
+        { "label": "Left Slide", "value": 3 },
+        { "label": "Right Slide", "value": 4 }
     ],
     "WidgetLayoutStates": [
         { "label": "Hide All", "value": 1 },
         { "label": "Show All", "value": 2 },
         { "label": "Coins Bar Only", "value": 4 },
         { "label": "Stars Bar Only", "value": 8 }
-    ],
-    "WidgetAnimationTypes": [
-        { "label": "None", "value": 0 },
-        { "label": "Left Slide", "value": 1 },
-        { "label": "Right Slide", "value": 2 }
     ]
 }

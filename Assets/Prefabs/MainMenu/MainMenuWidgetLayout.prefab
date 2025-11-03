@@ -124,9 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  AnimatableTargets:
+  animatableTargets:
   - {fileID: 4253474710851872194}
-  AnimationType: 2
+  holderTransform: {fileID: 0}
+  AnimationType: 4
   VisibleState: 2
 --- !u!1 &1009943301760841081
 GameObject:
@@ -177,9 +178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  AnimatableTargets:
+  animatableTargets:
   - {fileID: 6330795982164467202}
-  AnimationType: 1
+  holderTransform: {fileID: 0}
+  AnimationType: 3
   VisibleState: 2
 --- !u!1 &1351331568676206726
 GameObject:
@@ -377,9 +379,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  AnimatableTargets:
+  animatableTargets:
   - {fileID: 9018318582229181502}
-  AnimationType: 1
+  holderTransform: {fileID: 0}
+  AnimationType: 3
   VisibleState: 2
 --- !u!1 &2223805513626529323
 GameObject:
@@ -745,9 +748,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  AnimatableTargets:
+  animatableTargets:
   - {fileID: 5993291029229945034}
-  AnimationType: 2
+  holderTransform: {fileID: 0}
+  AnimationType: 4
   VisibleState: 2
 --- !u!1 &7165820128846509948
 GameObject:
@@ -880,7 +884,7 @@ MonoBehaviour:
   widgets:
   - {fileID: 2759994343848416399}
   - {fileID: 6199476051365561047}
-  - {fileID: 8590149980228936829}
+  - {fileID: 5010851219672631472}
   - {fileID: 8556496171852591868}
   - {fileID: 4786516701058804282}
 --- !u!1 &8307131636406960139
@@ -893,6 +897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5371861008671860251}
   - component: {fileID: 8590149980228936829}
+  - component: {fileID: 5010851219672631472}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -932,7 +937,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b25a4b781abe4b4db9fe18b3a227fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsButtonWidget
-  AnimatableTargets:
+--- !u!114 &5010851219672631472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307131636406960139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIWidget
+  animatableTargets:
   - {fileID: 1595278378063214908}
-  AnimationType: 2
+  holderTransform: {fileID: 0}
+  AnimationType: 4
   VisibleState: 2

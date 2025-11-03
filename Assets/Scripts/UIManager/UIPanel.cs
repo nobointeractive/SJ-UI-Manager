@@ -21,8 +21,8 @@ public class UIPanel : MonoBehaviour
     [IntDropdown("PanelHolderTypes")]
     public int PanelHolderType;
 
-    [IntDropdown("PanelAnimatorTypes")]
-    public int PanelAnimatorType;
+    [IntDropdown("AnimationTypes")]
+    public int AnimationType;
 
     [IntDropdown("WidgetLayoutStates")]
     public int WidgetLayoutState;

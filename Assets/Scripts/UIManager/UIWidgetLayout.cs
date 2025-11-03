@@ -18,7 +18,7 @@ public class UIWidgetLayout : MonoBehaviour
 
         foreach (UIWidget widget in widgets)
         {
-            UIWidgetAnimator animator = UIConfiguration.WidgetAnimators[widget.AnimationType];
+            UIAnimator animator = UIConfiguration.Animators[widget.AnimationType];
             widget.Initialize(animator);
         }
     }
@@ -38,7 +38,6 @@ public class UIWidgetLayout : MonoBehaviour
 
                 foreach (UIWidget widget in widgets)
                 {
-                    UIWidgetAnimator animator = UIConfiguration.WidgetAnimators[widget.AnimationType];
                     widget.SetLayoutState(currentState);
                 }
             }

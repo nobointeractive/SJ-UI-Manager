@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SettingsButtonWidget : UIWidget
+public class SettingsButtonController : MonoBehaviour
 {
     public void OnSettingsButtonClicked()
     {

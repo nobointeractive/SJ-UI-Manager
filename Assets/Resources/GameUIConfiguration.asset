@@ -20,12 +20,11 @@ MonoBehaviour:
   panelHolders:
   - {fileID: 5687334237881962354, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
   - {fileID: 3839705701060809302, guid: 287019c71d5ee4a2f8d745afcfed2394, type: 3}
-  panelAnimators:
+  animators:
   - {fileID: 7653624024412517167, guid: 4f7237563c9e14a539d66b880db47650, type: 3}
   - {fileID: 1731520655893266349, guid: 730918b2b93db45b2aee1eb9cf5ca4cd, type: 3}
   - {fileID: 8805177411636042528, guid: 288aeeaf287a74dd19b1e9155253d6a9, type: 3}
-  widgetAnimators:
-  - {fileID: -1640267252996894707, guid: 63b5e9d0342b14c1a900adf2a9d035e5, type: 3}
   - {fileID: 4862450010085421958, guid: 8850ecef1c8a34a00a5261d0d46672a9, type: 3}
   - {fileID: 4701170242263289086, guid: 7d88d56f1e8d34b6aa6837408a8a542d, type: 3}
   DefaultWidgetLayoutState: 2
+  blackeningPrefab: {fileID: 6539956857196400323, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}

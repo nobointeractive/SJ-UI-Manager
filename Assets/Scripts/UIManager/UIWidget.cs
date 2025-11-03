@@ -9,24 +9,18 @@ public enum UIWidgetVisibleState
     Visible = 1
 }
 
-public class UIWidget : MonoBehaviour
+public class UIWidget : UIAnimatable
 {
-    [Header("References")]
-    public List<Transform> AnimatableTargets;
-
-    [Header("Settings")]
-    [IntDropdown("WidgetAnimationTypes")]
-    public int AnimationType;
-
+    [Header("Settings")]    
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
-    public UIWidgetAnimator Animator { get; private set; }
+    public UIAnimator Animator { get; private set; }
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
     private float animationTimeout = 0f;
 
-    public void Initialize(UIWidgetAnimator animator)
+    public void Initialize(UIAnimator animator)
     {
         Animator = animator;
     }

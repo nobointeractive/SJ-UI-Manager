@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9168936941560299767}
-  - component: {fileID: 4701170242263289086}
+  - component: {fileID: 4862450010085421958}
   m_Layer: 0
-  m_Name: WidgetRightSlideAnimator
+  m_Name: AnimatorLeftSlide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4701170242263289086
+--- !u!114 &4862450010085421958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641273027722508289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a400d0031647a9b13180a6659fb94, type: 3}
+  m_Script: {fileID: 11500000, guid: b6b3fec7dfae24fbea0b332b20f4b11d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WidgetRightSlideAnimator
+  m_EditorClassIdentifier: Assembly-CSharp::WidgetLeftSlideAnimator

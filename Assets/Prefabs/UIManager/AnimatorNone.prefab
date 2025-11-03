@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9168936941560299767}
   - component: {fileID: 7653624024412517167}
   m_Layer: 0
-  m_Name: PanelNoneAnimator
+  m_Name: AnimatorNone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

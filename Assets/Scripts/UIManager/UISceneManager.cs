@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public enum UICanvasLayer
 {
     Widget = 0,
-    Panel = 1,
-    Overlay = 2,
+    Blackening = 1,
+    Panel = 2,
+    Overlay = 3,
     Count
 }
 
@@ -77,14 +78,27 @@ public class UISceneManager : MonoBehaviour
             rectTransform.offsetMin = Vector2.zero;
             rectTransform.offsetMax = Vector2.zero;
 
+            if (i == (int)UICanvasLayer.Blackening)
+            {
+                GameObject blackeningObject = Instantiate(configuration.BlackeningPrefab, layerObject.transform);
+                RectTransform blackeningRect = blackeningObject.GetComponent<RectTransform>();
+                blackeningRect.anchorMin = Vector2.zero;
+                blackeningRect.anchorMax = Vector2.one;
+                blackeningRect.offsetMin = Vector2.zero;
+                blackeningRect.offsetMax = Vector2.zero;
+            }
+
             canvasLayers.Add(canvas);
         }
+
+        var blackeningLayer = canvasLayers[(int)UICanvasLayer.Blackening].gameObject;
+        blackeningLayer.SetActive(false);
 
         WidgetLayout = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
         WidgetLayout.Initialize(UIConfiguration);
 
         panelController = this.AddComponent<UIPanelController>();
-        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], WidgetLayout);
+        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], WidgetLayout, blackeningLayer);
     }
     #endregion
 

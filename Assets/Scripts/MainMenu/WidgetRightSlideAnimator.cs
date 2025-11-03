@@ -1,12 +1,12 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class WidgetRightSlideAnimator : UIWidgetAnimator
+public class WidgetRightSlideAnimator : UIAnimator
 {
-    public override float Show(UIWidget widget)
+    public override float Show(UIAnimatable animatable)
     {
-        if (widget == null) return 0;
-        foreach (var target in widget.AnimatableTargets)
+        if (animatable == null) return 0;
+        foreach (var target in animatable.AnimatableTargets)
         {
             target.gameObject.SetActive(true);
             target.GetComponent<RectTransform>().anchoredPosition = new Vector2(Screen.width * 1.5f, 0);
@@ -15,11 +15,11 @@ public class WidgetRightSlideAnimator : UIWidgetAnimator
         return 0.3f;
     }
 
-    public override float Hide(UIWidget widget)
+    public override float Hide(UIAnimatable animatable)
     {
-        if (widget == null) return 0;
-        widget.gameObject.SetActive(true);
-        foreach (var target in widget.AnimatableTargets)
+        if (animatable == null) return 0;
+        animatable.gameObject.SetActive(true);
+        foreach (var target in animatable.AnimatableTargets)
         {
             target.GetComponent<RectTransform>().DOAnchorPosX(Screen.width * 1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
             {

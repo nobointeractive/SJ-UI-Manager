@@ -14,14 +14,14 @@ public class UIConfiguration : ScriptableObject
 {
     [SerializeField] private List<UIKeyValuePanelPair> panels;
     [SerializeField] private List<UIPanelHolder> panelHolders;
-    [SerializeField] private List<UIPanelAnimator> panelAnimators;
-    [SerializeField] private List<UIWidgetAnimator> widgetAnimators;
+    [SerializeField] private List<UIAnimator> animators;
 
     [IntDropdown("WidgetLayoutStates")]
     public int DefaultWidgetLayoutState;
+    [SerializeField] private GameObject blackeningPrefab;
 
     public List<UIKeyValuePanelPair> Panels => panels;
     public List<UIPanelHolder> PanelHolders => panelHolders;
-    public List<UIPanelAnimator> PanelAnimators => panelAnimators;
-    public List<UIWidgetAnimator> WidgetAnimators => widgetAnimators;
+    public List<UIAnimator> Animators => animators;
+    public GameObject BlackeningPrefab => blackeningPrefab;
 }

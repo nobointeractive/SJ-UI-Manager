@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2761271182583355591}
   - component: {fileID: 5753010831252768533}
   - component: {fileID: 9161326320738000892}
+  - component: {fileID: 7474862392264814747}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -75,6 +76,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &7474862392264814747
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611430594683783480}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2889862759376881733
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
   PanelHolderType: 0
-  PanelAnimatorType: 1
+  AnimationType: 1
   WidgetLayoutState: 1
   staticParameters: []
 --- !u!114 &1768117454339122764

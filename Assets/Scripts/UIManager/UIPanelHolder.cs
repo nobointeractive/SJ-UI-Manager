@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class UIPanelHolder : MonoBehaviour
+public class UIPanelHolder : UIAnimatable
 {
-    [SerializeField] private Transform holderTransform;
-    [SerializeField] private Transform[] animatableTargets;
-
-    public Transform HolderTransform => holderTransform;
-    public Transform[] AnimatableTargets => animatableTargets;
 
     protected UIPanel panel;
 
