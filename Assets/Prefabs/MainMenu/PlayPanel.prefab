@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
   PanelHolderType: 1
   AnimationType: 3
-  WidgetLayoutState: 1
+  WidgetLayoutState: 4
   staticParameters:
   - key: Title
     value: Play

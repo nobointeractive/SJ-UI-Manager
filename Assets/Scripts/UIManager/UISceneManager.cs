@@ -7,9 +7,8 @@ using UnityEngine.UI;
 public enum UICanvasLayer
 {
     Widget = 0,
-    Blackening = 1,
-    Panel = 2,
-    Overlay = 3,
+    Panel = 1,
+    Overlay = 2,
     Count
 }
 
@@ -65,6 +64,15 @@ public class UISceneManager : MonoBehaviour
     {
         UIConfiguration = configuration;
 
+        GameObject blackeningObject = Instantiate(configuration.BlackeningPrefab, MainCanvas.transform);
+        UIAnimatable blackeningAnimatable = blackeningObject.GetComponent<UIAnimatable>();
+        if (blackeningAnimatable != null)
+        {
+            var animator = UIConfiguration.Animators[(int)blackeningAnimatable.AnimationType];
+            animator.Initialize(blackeningAnimatable);
+        }
+        blackeningObject.SetActive(false);
+
         for (int i = 0; i < (int)UICanvasLayer.Count; i++)
         {
             GameObject layerObject = new GameObject(((UICanvasLayer)i).ToString());
@@ -75,29 +83,16 @@ public class UISceneManager : MonoBehaviour
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchorMax = Vector2.one;
             rectTransform.offsetMin = Vector2.zero;
-            rectTransform.offsetMax = Vector2.zero;
-
-            if (i == (int)UICanvasLayer.Blackening)
-            {
-                GameObject blackeningObject = Instantiate(configuration.BlackeningPrefab, layerObject.transform);
-                RectTransform blackeningRect = blackeningObject.GetComponent<RectTransform>();
-                blackeningRect.anchorMin = Vector2.zero;
-                blackeningRect.anchorMax = Vector2.one;
-                blackeningRect.offsetMin = Vector2.zero;
-                blackeningRect.offsetMax = Vector2.zero;
-            }
+            rectTransform.offsetMax = Vector2.zero;  
 
             canvasLayers.Add(canvas);
         }
-
-        var blackeningLayer = canvasLayers[(int)UICanvasLayer.Blackening].gameObject;
-        blackeningLayer.SetActive(false);
 
         WidgetLayout = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
         WidgetLayout.Initialize(UIConfiguration);
 
         panelController = this.AddComponent<UIPanelController>();
-        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], WidgetLayout, blackeningLayer);
+        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], WidgetLayout, blackeningAnimatable);
     }
     #endregion
 

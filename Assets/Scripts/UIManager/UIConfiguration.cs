@@ -15,10 +15,12 @@ public class UIConfiguration : ScriptableObject
     [SerializeField] private List<UIKeyValuePanelPair> panels;
     [SerializeField] private List<UIPanelHolder> panelHolders;
     [SerializeField] private List<UIAnimator> animators;
+    [SerializeField] private GameObject blackeningPrefab;
 
     [IntDropdown("WidgetLayoutStates")]
-    public int DefaultWidgetLayoutState;
-    [SerializeField] private GameObject blackeningPrefab;
+    public int DefaultWidgetLayoutState;    
+
+    public float PanelDelayTimeScaleBetweenAnimations = 0.5f;
 
     public List<UIKeyValuePanelPair> Panels => panels;
     public List<UIPanelHolder> PanelHolders => panelHolders;

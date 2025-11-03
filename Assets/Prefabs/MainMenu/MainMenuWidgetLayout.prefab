@@ -386,7 +386,7 @@ MonoBehaviour:
   holderTransform: {fileID: 0}
   flyerTarget: {fileID: 0}
   AnimationType: 3
-  VisibleState: 2
+  VisibleState: 6
 --- !u!1 &2223805513626529323
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ MonoBehaviour:
   holderTransform: {fileID: 0}
   flyerTarget: {fileID: 0}
   AnimationType: 4
-  VisibleState: 2
+  VisibleState: 10
 --- !u!114 &2477734233905071270
 MonoBehaviour:
   m_ObjectHideFlags: 0

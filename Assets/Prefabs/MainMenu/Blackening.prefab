@@ -90,3 +90,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIAnimatable
   animatableTargets:
   - {fileID: 3786015800872686568}
+  holderTransform: {fileID: 0}
+  flyerTarget: {fileID: 0}
+  AnimationType: 1

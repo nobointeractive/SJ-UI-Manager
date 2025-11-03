@@ -56,6 +56,8 @@ public class UIPanel : MonoBehaviour
     #region Initialization Methods
     public void Initialize(UIPanelController controller, UIPanelHolder holder, Dictionary<string, object> parameters)
     {
+        gameObject.SetActive(true);
+        
         panelController = controller;
         panelHolder = holder;
         if (parameters == null)

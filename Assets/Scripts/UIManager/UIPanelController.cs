@@ -9,7 +9,8 @@ public class UIPanelController : MonoBehaviour
         public enum CommandType
         {
             ShowNew,
-            CloseOld
+            CloseOld,
+            PushNew
         }
 
         public CommandType Type;
@@ -27,7 +28,7 @@ public class UIPanelController : MonoBehaviour
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
     public UIWidgetLayout WidgetLayout { get; private set; }
-    public GameObject BlackeningLayer { get; private set; }
+    public UIAnimatable BlackeningLayer { get; private set; }
 
     private List<UIPanel> panelStack = new List<UIPanel>();
     private List<UIPanelCommand> commandQueue = new List<UIPanelCommand>();
@@ -36,6 +37,7 @@ public class UIPanelController : MonoBehaviour
     private Dictionary<string, Stack<UIPanel>> panelPool = new Dictionary<string, Stack<UIPanel>>();
     private float animationTimeout = 0f;
     private bool isRunningTransition = false;
+    private bool isBlackeningShown = false;
 
     #region Life cycle Methods
     void Update()
@@ -51,9 +53,10 @@ public class UIPanelController : MonoBehaviour
                 ProcessPanelsToRemove();
                 ProcessCommandQueue();
 
-                if (commandQueue.Count == 0 && panelStack.Count == 0)
+                if (commandQueue.Count == 0 && panelStack.Count == 0 && isBlackeningShown)
                 {
-                    WidgetLayout.SetToDefaultLayoutState();
+                    HideBlackening();
+                    WidgetLayout.SetToDefaultLayoutState();                        
                 }
             }
         }    
@@ -61,12 +64,12 @@ public class UIPanelController : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetLayout widgetLayout, GameObject blackeningLayer)
+    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetLayout widgetLayout, UIAnimatable blackeningAnimatable)
     {
         UIConfiguration = uiConfiguration;
         MainCanvas = mainCanvas;
         WidgetLayout = widgetLayout;
-        BlackeningLayer = blackeningLayer;
+        BlackeningLayer = blackeningAnimatable;
     }
     #endregion
 
@@ -79,7 +82,13 @@ public class UIPanelController : MonoBehaviour
 
     public void ClosePanel(UIPanel panel)
     {
-        var command = new UIPanelCommand(UIPanelCommand.CommandType.CloseOld, panel);        
+        var command = new UIPanelCommand(UIPanelCommand.CommandType.CloseOld, panel);
+        commandQueue.Add(command);
+    }
+    
+    public void PushPanel(UIPanel prefab, Dictionary<string, object> parameters = null)
+    {
+        var command = new UIPanelCommand(UIPanelCommand.CommandType.PushNew, prefab, parameters);
         commandQueue.Add(command);
     }
 
@@ -109,6 +118,11 @@ public class UIPanelController : MonoBehaviour
         animationTimeout = holder.Animator.Show(panel.PanelHolder);
         WidgetLayout.SetLayoutState(panel.WidgetLayoutState);
 
+        if (!isBlackeningShown)
+        {
+            ShowBlackening();
+        }
+
         isRunningTransition = false;
     }
 
@@ -120,8 +134,8 @@ public class UIPanelController : MonoBehaviour
             yield break;
         }
 
-        panelStack.Remove(panel);        
-        
+        panelStack.Remove(panel);
+
         UIPanel topPanel = null;
         if (panelStack.Count > 0)
         {
@@ -134,23 +148,45 @@ public class UIPanelController : MonoBehaviour
 
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
             animationTimeout = panel.PanelHolder.Animator.Hide(panel.PanelHolder);
-            yield return new WaitForSeconds(animationTimeout);
+            yield return new WaitForSeconds(animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations);
             panelsToRemove.Add(panel);
         }
         else if (panel.VisibilityState == UIPanelVisibilityState.Hidden)
         {
             panelsToRemove.Add(panel);
-        }        
+        }
 
         if (topPanel != null && topPanel.VisibilityState == UIPanelVisibilityState.Hidden)
         {
             topPanel.transform.SetAsLastSibling();
             topPanel.VisibilityState = UIPanelVisibilityState.Shown;
+            topPanel.PanelHolder.gameObject.SetActive(true);
             animationTimeout = topPanel.PanelHolder.Animator.Show(topPanel.PanelHolder);
             WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
         }
 
         isRunningTransition = false;
+    }
+    
+    private IEnumerator DoPushNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
+    {
+        if (panelStack.Count > 0)
+        {
+            UIPanelHolder holder = CreateNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
+            UIPanel panel = CreateNewPanelInstance(prefab, holder.HolderTransform);
+            panel.Initialize(this, holder, parameters);
+            holder.Initialize(UIConfiguration.Animators[(int)prefab.AnimationType], panel);
+            panelStack.Insert(0, panel);
+
+            panel.VisibilityState = UIPanelVisibilityState.Hidden;
+            holder.gameObject.SetActive(false);
+
+            isRunningTransition = false;
+        }
+        else
+        {
+            yield return DoShowNewPanel(prefab, parameters);
+        }
     }
 
     private void ProcessCommandQueue()
@@ -168,6 +204,9 @@ public class UIPanelController : MonoBehaviour
                 break;
             case UIPanelCommand.CommandType.CloseOld:
                 StartCoroutine(DoCloseOldPanel(command.Panel));
+                break;
+            case UIPanelCommand.CommandType.PushNew:
+                StartCoroutine(DoPushNewPanel(command.Panel, command.Parameters));
                 break;
         }
     }
@@ -199,6 +238,7 @@ public class UIPanelController : MonoBehaviour
             }
             panel.transform.SetParent(this.transform, false);
 
+            panel.gameObject.SetActive(false);
             panel.VisibilityState = UIPanelVisibilityState.Closed;
             panelPool[panelName].Push(panel);            
         }
@@ -250,8 +290,23 @@ public class UIPanelController : MonoBehaviour
             panel.name = prefab.name;
             panel.gameObject.SetActive(true);
         }
-                
+
         return panel;
+    }
+    #endregion
+    
+
+    #region Blackening Layer Methods
+    public void ShowBlackening()
+    {
+        isBlackeningShown = true;
+        BlackeningLayer.Animator.Show(BlackeningLayer);
+    }
+
+    public void HideBlackening()
+    {
+        isBlackeningShown = false;
+        BlackeningLayer.Animator.Hide(BlackeningLayer);
     }
     #endregion
 }

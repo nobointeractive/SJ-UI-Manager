@@ -18,7 +18,7 @@ MonoBehaviour:
   - key: Settings
     prefab: {fileID: 5152494583042993419, guid: d227e85aa95d64ce1be99d3c8665fa0a, type: 3}
   - key: Update
-    prefab: {fileID: 5152494583042993419, guid: 222b82a5e1c7c4e82baf334e910a7eb5, type: 3}
+    prefab: {fileID: 5152494583042993419, guid: 7c99b9687e9fc4871aa754ce3311da95, type: 3}
   - key: Play
     prefab: {fileID: 5152494583042993419, guid: 47362659674ff4097a9ab87aff2e9b5a, type: 3}
   - key: Stars
@@ -32,5 +32,6 @@ MonoBehaviour:
   - {fileID: 8805177411636042528, guid: 288aeeaf287a74dd19b1e9155253d6a9, type: 3}
   - {fileID: 4862450010085421958, guid: 8850ecef1c8a34a00a5261d0d46672a9, type: 3}
   - {fileID: 4701170242263289086, guid: 7d88d56f1e8d34b6aa6837408a8a542d, type: 3}
-  DefaultWidgetLayoutState: 2
   blackeningPrefab: {fileID: 6539956857196400323, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
+  DefaultWidgetLayoutState: 2
+  PanelDelayTimeScaleBetweenAnimations: 0.5

@@ -7,6 +7,8 @@ public class UIPanelHolder : UIAnimatable
 
     public virtual void Initialize(UIAnimator animator, UIPanel panel)
     {
+        gameObject.SetActive(true);
+
         this.panel = panel;
         animator.Initialize(this);
 
