@@ -22,6 +22,7 @@ public class UISceneManager : MonoBehaviour
 
     private List<Canvas> canvasLayers = new List<Canvas>();
     private UIPanelController panelController;
+    private UIFlyerController flyerController;
 
     #region Singleton Pattern
     private static UISceneManager _instance;
@@ -93,6 +94,9 @@ public class UISceneManager : MonoBehaviour
 
         panelController = this.AddComponent<UIPanelController>();
         panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], WidgetLayout, blackeningAnimatable);
+
+        flyerController = this.AddComponent<UIFlyerController>();
+        flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay]);
     }
     #endregion
 
@@ -108,6 +112,12 @@ public class UISceneManager : MonoBehaviour
         UIPanel prefab = UIConfiguration.Panels.Find(panel => panel.key == name).prefab;
         panelController.ShowPanel(prefab, parameters);
     }
+
+    public void PushPanel(string name, Dictionary<string, object> parameters = null)
+    {
+        UIPanel prefab = UIConfiguration.Panels.Find(panel => panel.key == name).prefab;
+        panelController.PushPanel(prefab, parameters);
+    }
     #endregion
 
     #region Widget Management Methods
@@ -117,6 +127,17 @@ public class UISceneManager : MonoBehaviour
         {
             WidgetLayout.SetLayoutState(state);
             Debug.Log($"Widget layout state set to: {state}");
+        }
+    }
+    #endregion
+
+    #region Flyer Management Methods
+    public void PlayFlyer(string flyerName, UIWidget start, UIWidget end, float duration)
+    {
+        UIAnimatable flyerPrefab = UIConfiguration.GetFlyer(flyerName);
+        if (flyerPrefab != null)
+        {
+            flyerController.Play(flyerPrefab, start, end, duration);
         }
     }
     #endregion

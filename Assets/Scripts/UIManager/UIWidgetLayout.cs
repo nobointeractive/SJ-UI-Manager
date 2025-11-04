@@ -48,9 +48,14 @@ public class UIWidgetLayout : MonoBehaviour
     {
         nextState = state;
     }
-    
+
     public void SetToDefaultLayoutState()
     {
         SetLayoutState(defaultState);
+    }
+    
+    public UIWidget GetWidget(string name)
+    {
+        return System.Array.Find(widgets, widget => widget.name.Equals(name));
     }
 }

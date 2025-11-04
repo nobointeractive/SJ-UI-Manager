@@ -33,5 +33,8 @@ public class MainMenuSceneController : MonoBehaviour
     {
         UISceneManager.Instance.WidgetLayout.gameObject.SetActive(true);
         UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.ShowAll);
+
+        UISceneManager.Instance.PushPanel("ClaimRewards");
+        UISceneManager.Instance.PushPanel("Update");
     }
 }

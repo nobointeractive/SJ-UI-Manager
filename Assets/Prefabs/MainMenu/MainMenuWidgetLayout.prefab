@@ -184,7 +184,7 @@ MonoBehaviour:
   - {fileID: 6330795982164467202}
   holderTransform: {fileID: 6330795982164467202}
   flyerTarget: {fileID: 8836817824739555271}
-  AppearanceAnimation: 4
+  AppearanceAnimation: 3
   VisibleState: 2
   FlyerAnimation: 5
 --- !u!1 &1351331568676206726
@@ -387,8 +387,8 @@ MonoBehaviour:
   - {fileID: 9018318582229181502}
   holderTransform: {fileID: 9018318582229181502}
   flyerTarget: {fileID: 5052178393282055515}
-  AppearanceAnimation: 4
-  VisibleState: 2
+  AppearanceAnimation: 3
+  VisibleState: 6
   FlyerAnimation: 5
 --- !u!1 &2223805513626529323
 GameObject:
@@ -761,7 +761,7 @@ MonoBehaviour:
   holderTransform: {fileID: 6529198243692319942}
   flyerTarget: {fileID: 8759739778503459893}
   AppearanceAnimation: 4
-  VisibleState: 2
+  VisibleState: 10
   FlyerAnimation: 5
 --- !u!114 &2477734233905071270
 MonoBehaviour:

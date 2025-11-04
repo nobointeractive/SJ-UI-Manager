@@ -28,13 +28,14 @@ public class UIAnimator : MonoBehaviour
         return 0;
     }
 
-    public virtual float MoveTo(UIAnimatable animatable, UIAnimatable destination)
+    public virtual float MoveTo(UIAnimatable animatable, UIWidget destination, float duration = 1f)
     {
         if (animatable == null || destination == null) return 0;
+    
         foreach (var target in animatable.AnimatableTargets)
         {
             target.position = destination.FlyerTarget.position;
         }
-        return 0;
+        return duration;
     }
 }

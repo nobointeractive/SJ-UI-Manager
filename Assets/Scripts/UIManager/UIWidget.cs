@@ -20,6 +20,7 @@ public class UIWidget : UIAnimatable
 
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
+    private UIWidgetVisibleState stayVisibleState = UIWidgetVisibleState.Unknown;
     private float animationTimeout = 0f;
 
     public void Initialize(UIAnimator animator)
@@ -32,19 +33,41 @@ public class UIWidget : UIAnimatable
         if (animationTimeout > 0f)
         {
             animationTimeout -= Time.deltaTime;
+            return;
         }
-        else if (nextIsVisible != UIWidgetVisibleState.Unknown && isVisible != nextIsVisible)
-        {
-            isVisible = nextIsVisible;
-            nextIsVisible = UIWidgetVisibleState.Unknown;
 
-            if (isVisible == UIWidgetVisibleState.Visible)
+        if (stayVisibleState != UIWidgetVisibleState.Unknown)
+        {
+            if (isVisible != stayVisibleState)
             {
-                animationTimeout = Animator.Show(this);
+                isVisible = stayVisibleState;
+                if (isVisible == UIWidgetVisibleState.Visible)
+                {
+                    animationTimeout = Animator.Show(this);
+                }
+                else
+                {
+                    animationTimeout = Animator.Hide(this);
+                }
             }
-            else
+            return;
+        }
+
+        if (nextIsVisible != UIWidgetVisibleState.Unknown)
+        {
+            if (isVisible != nextIsVisible)
             {
-                animationTimeout = Animator.Hide(this);
+                isVisible = nextIsVisible;
+                nextIsVisible = UIWidgetVisibleState.Unknown;
+
+                if (isVisible == UIWidgetVisibleState.Visible)
+                {
+                    animationTimeout = Animator.Show(this);
+                }
+                else
+                {
+                    animationTimeout = Animator.Hide(this);
+                }
             }
         }
     }
@@ -59,5 +82,16 @@ public class UIWidget : UIAnimatable
         {
             nextIsVisible = UIWidgetVisibleState.Hidden;
         }
+    }
+
+    public void KeepVisible()
+    {
+        nextIsVisible = isVisible;
+        stayVisibleState = UIWidgetVisibleState.Visible;
+    }
+
+    public void StopKeepingVisible()
+    {
+        stayVisibleState = UIWidgetVisibleState.Unknown;
     }
 }
