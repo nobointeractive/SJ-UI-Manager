@@ -1,8 +1,8 @@
 using UnityEngine;
 
 public class UIAnimatable : MonoBehaviour
-{    
-    [SerializeField] protected Transform[] animatableTargets;        
+{
+    [SerializeField] protected Transform[] animatableTargets;
 
     [IntDropdown("AnimationTypes")]
     public int AppearanceAnimation;
@@ -13,7 +13,7 @@ public class UIAnimatable : MonoBehaviour
     public int FlyerAnimation;
     public UIAnimator FlyerAnimator { get; private set; }
 
-    public Transform[] AnimatableTargets => animatableTargets;            
+    public Transform[] AnimatableTargets => animatableTargets;
 
     public virtual void AttachAppearanceAnimator(UIAnimator animatorPrefab)
     {
@@ -45,5 +45,20 @@ public class UIAnimatable : MonoBehaviour
         animator.OriginalPrefab = animatorPrefab.gameObject;
         animator.Initialize(this);
         FlyerAnimator = animator;
+    }
+
+    public virtual float AnimateShow()
+    {
+        return AppearanceAnimator?.Show(this) ?? 0f;
+    }
+
+    public virtual float AnimateHide()
+    {
+        return AppearanceAnimator?.Hide(this) ?? 0f;
+    }
+
+    public virtual float AnimateMoveTo(UIWidget departure, UIWidget destination, float duration = 1f)
+    {
+        return FlyerAnimator?.MoveTo(this, departure, destination, duration) ?? 0f;
     }
 }

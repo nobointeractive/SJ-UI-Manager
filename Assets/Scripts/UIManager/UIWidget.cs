@@ -15,17 +15,20 @@ public class UIWidget : UIAnimatable
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
-    [SerializeField] private Transform flyerTarget;    
+    [SerializeField] private Transform flyerTarget;   
+
+    public bool IsAvailable = true; 
 
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
-    private UIWidgetVisibleState stayVisibleState = UIWidgetVisibleState.Unknown;
+    private bool isKeepingVisible = false;
     private float animationTimeout = 0f;
 
     public void Initialize(UIAnimator appearanceAnimator, UIAnimator flyerAnimator)
     {
         AttachAppearanceAnimator(appearanceAnimator);
         AttachFlyerAnimator(flyerAnimator);
+        gameObject.SetActive(IsAvailable);
     }
 
     public void Update()
@@ -36,19 +39,12 @@ public class UIWidget : UIAnimatable
             return;
         }
 
-        if (stayVisibleState != UIWidgetVisibleState.Unknown)
+        if (isKeepingVisible)
         {
-            if (isVisible != stayVisibleState)
+            if (isVisible != UIWidgetVisibleState.Visible)
             {
-                isVisible = stayVisibleState;
-                if (isVisible == UIWidgetVisibleState.Visible)
-                {
-                    animationTimeout = AppearanceAnimator.Show(this);
-                }
-                else
-                {
-                    animationTimeout = AppearanceAnimator.Hide(this);
-                }
+                isVisible = UIWidgetVisibleState.Visible;
+                animationTimeout = AnimateShow();
             }
             return;
         }
@@ -62,14 +58,20 @@ public class UIWidget : UIAnimatable
 
                 if (isVisible == UIWidgetVisibleState.Visible)
                 {
-                    animationTimeout = AppearanceAnimator.Show(this);
+                    animationTimeout = AnimateShow();
                 }
                 else
                 {
-                    animationTimeout = AppearanceAnimator.Hide(this);
+                    animationTimeout = AnimateHide();
                 }
             }
         }
+    }
+    
+    public void SetAvailability(bool available)
+    {
+        IsAvailable = available;
+        gameObject.SetActive(available);
     }
 
     public void SetLayoutState(int state)
@@ -87,12 +89,12 @@ public class UIWidget : UIAnimatable
     public void KeepVisible()
     {
         nextIsVisible = isVisible;
-        stayVisibleState = UIWidgetVisibleState.Visible;
+        isKeepingVisible = true;
     }
 
     public void StopKeepingVisible()
     {
-        stayVisibleState = UIWidgetVisibleState.Unknown;
+        isKeepingVisible = false;
     }
 
     public Transform FlyerTarget

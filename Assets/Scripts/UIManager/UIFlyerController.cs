@@ -21,9 +21,9 @@ public class UIFlyerController : MonoBehaviour
 
         if (start.FlyerAnimator != null)
         {
-            start.FlyerAnimator.Show(start);
+            start.AnimateShow();
         }
         flyerInstance.gameObject.SetActive(true);        
-        flyerInstance.FlyerAnimator.MoveTo(flyerInstance, start, end, duration);
+        flyerInstance.AnimateMoveTo(start, end, duration);
     }
 }

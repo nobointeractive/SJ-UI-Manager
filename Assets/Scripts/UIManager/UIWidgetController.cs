@@ -6,14 +6,12 @@ public class UIWidgetController : MonoBehaviour
     [SerializeField] protected UIWidget[] widgets;
 
     private int currentState = -1;
-    private int nextState = -1;
+    private int nextState = -1;   
     private float animationTimeout = 0f;
-    private int defaultState = -1;
 
     public void Initialize(UIConfiguration configuration)
     {
         UIConfiguration = configuration;
-        defaultState = configuration.DefaultWidgetLayoutState;
         currentState = -1;
 
         foreach (UIWidget widget in widgets)
@@ -52,7 +50,7 @@ public class UIWidgetController : MonoBehaviour
 
     public void SetToDefaultLayoutState()
     {
-        SetLayoutState(defaultState);
+        SetLayoutState(UIConfiguration.DefaultWidgetLayoutState);
     }
     
     public UIWidget GetWidget(string name)

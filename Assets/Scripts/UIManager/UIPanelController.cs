@@ -100,7 +100,7 @@ public class UIPanelController : MonoBehaviour
             if (prevPanel.VisibilityState == UIPanelVisibilityState.Shown)
             {
                 prevPanel.VisibilityState = UIPanelVisibilityState.Hidden;
-                animationTimeout = prevPanel.PanelHolder.AppearanceAnimator.Hide(prevPanel.PanelHolder);
+                animationTimeout = prevPanel.PanelHolder.AnimateHide();
                 if (animationTimeout > 0f)
                 {
                     yield return new WaitForSeconds(animationTimeout);
@@ -115,7 +115,7 @@ public class UIPanelController : MonoBehaviour
         panelStack.Add(panel);
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
-        animationTimeout = holder.AppearanceAnimator.Show(panel.PanelHolder);
+        animationTimeout = holder.AnimateShow();
         WidgetLayout.SetLayoutState(panel.WidgetLayoutState);
 
         if (!isBlackeningShown)
@@ -147,7 +147,7 @@ public class UIPanelController : MonoBehaviour
             panel.gameObject.SendMessage("OnPanelClosed", SendMessageOptions.DontRequireReceiver);
 
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
-            animationTimeout = panel.PanelHolder.AppearanceAnimator.Hide(panel.PanelHolder);
+            animationTimeout = panel.PanelHolder.AnimateHide();
             yield return new WaitForSeconds(animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations);
             panelsToRemove.Add(panel);
         }
@@ -161,7 +161,7 @@ public class UIPanelController : MonoBehaviour
             topPanel.transform.SetAsLastSibling();
             topPanel.VisibilityState = UIPanelVisibilityState.Shown;
             topPanel.PanelHolder.gameObject.SetActive(true);
-            animationTimeout = topPanel.PanelHolder.AppearanceAnimator.Show(topPanel.PanelHolder);
+            animationTimeout = topPanel.PanelHolder.AnimateShow();
             WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
         }
 
@@ -300,13 +300,13 @@ public class UIPanelController : MonoBehaviour
     public void ShowBlackening()
     {
         isBlackeningShown = true;
-        BlackeningLayer.AppearanceAnimator.Show(BlackeningLayer);
+        BlackeningLayer.AnimateShow();
     }
 
     public void HideBlackening()
     {
         isBlackeningShown = false;
-        BlackeningLayer.AppearanceAnimator.Hide(BlackeningLayer);
+        BlackeningLayer.AnimateHide();
     }
     #endregion
 }
