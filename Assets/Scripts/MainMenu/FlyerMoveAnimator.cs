@@ -10,17 +10,19 @@ public class FlyerMoveAnimator : UIAnimator
         base.Initialize(animatable);
     }
 
-    public override float MoveTo(UIAnimatable animatable, UIWidget destination, float duration = 1f)
+    public override float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
     {
         if (animatable == null || destination == null) return 0;
         animatable.AppearanceAnimator.Show(animatable);
-        StartCoroutine(DOMoveTo(animatable, destination, duration));
+        StartCoroutine(DOMoveTo(animatable, departure, destination, duration));
         return duration;
     }
 
-    private IEnumerator DOMoveTo(UIAnimatable animatable, UIWidget destination, float duration = 1f)
+    private IEnumerator DOMoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
     {
         destination.KeepVisible();
+
+        animatable.transform.position = departure.FlyerTarget.transform.position;
 
         List<Vector3> startPositions = new List<Vector3>();
         for (int i = 0; i < animatable.AnimatableTargets.Length; i++)

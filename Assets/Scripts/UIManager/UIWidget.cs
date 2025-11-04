@@ -15,6 +15,8 @@ public class UIWidget : UIAnimatable
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
+    [SerializeField] private Transform flyerTarget;    
+
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState stayVisibleState = UIWidgetVisibleState.Unknown;
@@ -91,5 +93,16 @@ public class UIWidget : UIAnimatable
     public void StopKeepingVisible()
     {
         stayVisibleState = UIWidgetVisibleState.Unknown;
+    }
+
+    public Transform FlyerTarget
+    {
+        get
+        {
+            if (flyerTarget != null)
+                return flyerTarget;
+            
+            return this.transform;
+        }
     }
 }

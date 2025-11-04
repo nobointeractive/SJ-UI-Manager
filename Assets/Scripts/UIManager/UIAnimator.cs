@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UIAnimator : MonoBehaviour
 {
+    public GameObject OriginalPrefab { get; set; }
+
     public virtual void Initialize(UIAnimatable animatable)
     {
     }
@@ -27,7 +29,7 @@ public class UIAnimator : MonoBehaviour
         return 0;
     }
 
-    public virtual float MoveTo(UIAnimatable animatable, UIWidget destination, float duration = 1f)
+    public virtual float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
     {
         if (animatable == null || destination == null) return 0;
     

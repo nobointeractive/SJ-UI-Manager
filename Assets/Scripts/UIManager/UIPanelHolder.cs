@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class UIPanelHolder : UIAnimatable
 {
+    [SerializeField] private Transform holderTransform;
+    public Transform HolderTransform => holderTransform;
 
     protected UIPanel panel;
 
