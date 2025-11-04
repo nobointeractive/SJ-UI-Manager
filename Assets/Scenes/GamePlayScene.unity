@@ -321,28 +321,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549915978}
-  - component: {fileID: 549915977}
+  - component: {fileID: 549915979}
   m_Layer: 0
-  m_Name: MainMenuSceneController
+  m_Name: GamePlaySceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &549915977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549915976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877602df79a914a2d831353011f815e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MainMenuSceneController
-  uiConfiguration: {fileID: 11400000, guid: 3cf5185e49cc04533877aa30a6068c4e, type: 2}
-  widgetLayout: {fileID: 1544698199795254650, guid: d0a1e9121dc42433e847c56cfd48fa11, type: 3}
 --- !u!4 &549915978
 Transform:
   m_ObjectHideFlags: 0
@@ -358,6 +344,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &549915979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549915976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d271992b9b553440bba2453c107da040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlaySceneController
+  uiConfiguration: {fileID: 11400000, guid: 3cf5185e49cc04533877aa30a6068c4e, type: 2}
+  widgetLayout: {fileID: 1544698199795254650, guid: 2b84d131ca21e4337b671b9074b0e26b, type: 3}
 --- !u!1 &1506730453
 GameObject:
   m_ObjectHideFlags: 0

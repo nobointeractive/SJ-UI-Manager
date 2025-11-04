@@ -46,19 +46,10 @@ public class UISceneManager : MonoBehaviour
     }
     #endregion
 
-    #region Life cycle Methods
+    #region Lifecycle Methods
     void Awake()
     {
-    }
-
-    void Start()
-    {
-        // Startup logic can be added here in the future
-    }
-
-    void OnDestroy()
-    {
-
+        _instance = this;
     }
     #endregion
 
