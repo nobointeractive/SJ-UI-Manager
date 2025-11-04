@@ -29,6 +29,16 @@ public class UIAnimator : MonoBehaviour
         return 0;
     }
 
+    public virtual float LaunchFlyer(UIAnimatable animatable)
+    {
+        return 0;
+    }
+    
+    public virtual float LandFlyer(UIAnimatable animatable)
+    {        
+        return 0;
+    }
+
     public virtual float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
     {
         if (animatable == null || destination == null) return 0;

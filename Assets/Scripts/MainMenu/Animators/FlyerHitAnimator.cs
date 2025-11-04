@@ -8,7 +8,7 @@ public class FlyerHitAnimator : UIAnimator
         base.Initialize(animatable);
     }
 
-    public override float Show(UIAnimatable animatable)
+    public override float LaunchFlyer(UIAnimatable animatable)
     {
         if (animatable == null) return 0;
         foreach (var target in animatable.AnimatableTargets)
@@ -18,7 +18,7 @@ public class FlyerHitAnimator : UIAnimator
         return 0.3f;
     }
 
-    public override float Hide(UIAnimatable animatable)
+    public override float LandFlyer(UIAnimatable animatable)
     {
         if (animatable == null) return 0;
         foreach (var target in animatable.AnimatableTargets)

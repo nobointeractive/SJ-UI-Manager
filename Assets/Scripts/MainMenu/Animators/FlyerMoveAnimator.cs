@@ -22,6 +22,7 @@ public class FlyerMoveAnimator : UIAnimator
     {
         destination.KeepVisible();
 
+        departure.FlyerAnimator?.LaunchFlyer(departure);
         animatable.transform.position = departure.FlyerTarget.transform.position;
 
         List<Vector3> startPositions = new List<Vector3>();
@@ -43,8 +44,8 @@ public class FlyerMoveAnimator : UIAnimator
             yield return null;
         }
 
-        animatable.AppearanceAnimator.Hide(animatable);
-        float hideDuration = destination.FlyerAnimator.Hide(destination);
+        float hideDuration = animatable.AppearanceAnimator.Hide(animatable);
+        destination.FlyerAnimator?.LandFlyer(destination);
 
         yield return new WaitForSeconds(hideDuration);
         destination.StopKeepingVisible();
