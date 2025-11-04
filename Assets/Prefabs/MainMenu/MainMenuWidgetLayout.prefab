@@ -126,10 +126,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
   animatableTargets:
   - {fileID: 4253474710851872194}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
-  AnimationType: 4
+  holderTransform: {fileID: 4253474710851872194}
+  flyerTarget: {fileID: 4738416309311970047}
+  AppearanceAnimation: 4
   VisibleState: 2
+  FlyerAnimation: 5
 --- !u!1 &1009943301760841081
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,10 +182,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
   animatableTargets:
   - {fileID: 6330795982164467202}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
-  AnimationType: 3
+  holderTransform: {fileID: 6330795982164467202}
+  flyerTarget: {fileID: 8836817824739555271}
+  AppearanceAnimation: 4
   VisibleState: 2
+  FlyerAnimation: 5
 --- !u!1 &1351331568676206726
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,10 +385,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
   animatableTargets:
   - {fileID: 9018318582229181502}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
-  AnimationType: 3
-  VisibleState: 6
+  holderTransform: {fileID: 9018318582229181502}
+  flyerTarget: {fileID: 5052178393282055515}
+  AppearanceAnimation: 4
+  VisibleState: 2
+  FlyerAnimation: 5
 --- !u!1 &2223805513626529323
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,10 +758,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
   animatableTargets:
   - {fileID: 5993291029229945034}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
-  AnimationType: 4
-  VisibleState: 10
+  holderTransform: {fileID: 6529198243692319942}
+  flyerTarget: {fileID: 8759739778503459893}
+  AppearanceAnimation: 4
+  VisibleState: 2
+  FlyerAnimation: 5
 --- !u!114 &2477734233905071270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1025,7 +1029,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
   animatableTargets:
   - {fileID: 1595278378063214908}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
-  AnimationType: 4
+  holderTransform: {fileID: 1595278378063214908}
+  flyerTarget: {fileID: 5565829048334248797}
+  AppearanceAnimation: 4
   VisibleState: 2
+  FlyerAnimation: 5

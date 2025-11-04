@@ -68,7 +68,7 @@ public class UISceneManager : MonoBehaviour
         UIAnimatable blackeningAnimatable = blackeningObject.GetComponent<UIAnimatable>();
         if (blackeningAnimatable != null)
         {
-            var animator = UIConfiguration.Animators[(int)blackeningAnimatable.AnimationType];
+            var animator = UIConfiguration.Animators[(int)blackeningAnimatable.AppearanceAnimation];
             animator.Initialize(blackeningAnimatable);
         }
         blackeningObject.SetActive(false);

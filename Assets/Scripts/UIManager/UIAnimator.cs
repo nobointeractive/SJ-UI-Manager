@@ -28,7 +28,7 @@ public class UIAnimator : MonoBehaviour
         return 0;
     }
 
-    public virtual float FlyTo(UIAnimatable animatable, UIAnimatable destination)
+    public virtual float MoveTo(UIAnimatable animatable, UIAnimatable destination)
     {
         if (animatable == null || destination == null) return 0;
         foreach (var target in animatable.AnimatableTargets)

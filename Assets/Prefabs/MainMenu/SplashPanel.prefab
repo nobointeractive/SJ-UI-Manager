@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
   PanelHolderType: 0
-  AnimationType: 1
+  AppearanceAnimation: 1
   WidgetLayoutState: 1
   staticParameters: []
 --- !u!114 &1768117454339122764

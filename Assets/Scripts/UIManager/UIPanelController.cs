@@ -111,7 +111,7 @@ public class UIPanelController : MonoBehaviour
         UIPanelHolder holder = CreateNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
         UIPanel panel = CreateNewPanelInstance(prefab, holder.HolderTransform);        
         panel.Initialize(this, holder, parameters);
-        holder.Initialize(UIConfiguration.Animators[(int)prefab.AnimationType], panel);
+        holder.Initialize(UIConfiguration.Animators[(int)prefab.AppearanceAnimation], panel);
         panelStack.Add(panel);
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
@@ -175,7 +175,7 @@ public class UIPanelController : MonoBehaviour
             UIPanelHolder holder = CreateNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
             UIPanel panel = CreateNewPanelInstance(prefab, holder.HolderTransform);
             panel.Initialize(this, holder, parameters);
-            holder.Initialize(UIConfiguration.Animators[(int)prefab.AnimationType], panel);
+            holder.Initialize(UIConfiguration.Animators[(int)prefab.AppearanceAnimation], panel);
             panelStack.Insert(0, panel);
 
             panel.VisibilityState = UIPanelVisibilityState.Hidden;

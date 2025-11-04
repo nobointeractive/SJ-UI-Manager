@@ -32,6 +32,8 @@ MonoBehaviour:
   - {fileID: 8805177411636042528, guid: 288aeeaf287a74dd19b1e9155253d6a9, type: 3}
   - {fileID: 4862450010085421958, guid: 8850ecef1c8a34a00a5261d0d46672a9, type: 3}
   - {fileID: 4701170242263289086, guid: 7d88d56f1e8d34b6aa6837408a8a542d, type: 3}
+  - {fileID: 6032333982435247331, guid: 23e93f8271de744188e03c3d4909002d, type: 3}
+  - {fileID: 4126968125720359379, guid: b2dd1fa3384e54fbf922dfaca8769463, type: 3}
   blackeningPrefab: {fileID: 6539956857196400323, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
   DefaultWidgetLayoutState: 2
   PanelDelayTimeScaleBetweenAnimations: 0.5

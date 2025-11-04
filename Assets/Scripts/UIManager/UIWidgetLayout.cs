@@ -18,7 +18,7 @@ public class UIWidgetLayout : MonoBehaviour
 
         foreach (UIWidget widget in widgets)
         {
-            UIAnimator animator = UIConfiguration.Animators[widget.AnimationType];
+            UIAnimator animator = UIConfiguration.Animators[widget.AppearanceAnimation];
             animator.Initialize(widget);
         }
     }

@@ -11,9 +11,12 @@ public enum UIWidgetVisibleState
 
 public class UIWidget : UIAnimatable
 {
-    [Header("Settings")]    
+    [Header("Settings")]
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
+
+    [IntDropdown("AnimationTypes")]
+    public int FlyerAnimation;
 
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;

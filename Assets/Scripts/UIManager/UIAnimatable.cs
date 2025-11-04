@@ -7,7 +7,7 @@ public class UIAnimatable : MonoBehaviour
     [SerializeField] private Transform flyerTarget;
 
     [IntDropdown("AnimationTypes")]
-    public int AnimationType;
+    public int AppearanceAnimation;
 
     public UIAnimator Animator { get; set; }
 

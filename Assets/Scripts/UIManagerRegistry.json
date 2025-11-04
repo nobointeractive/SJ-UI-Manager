@@ -8,7 +8,9 @@
         { "label": "Fade", "value": 1 },
         { "label": "Scale", "value": 2 },
         { "label": "Left Slide", "value": 3 },
-        { "label": "Right Slide", "value": 4 }
+        { "label": "Right Slide", "value": 4 },
+        { "label": "Flyer Hit", "value": 5 },
+        { "label": "Flyer Move", "value": 6 }
     ],
     "WidgetLayoutStates": [
         { "label": "Hide All", "value": 1 },
