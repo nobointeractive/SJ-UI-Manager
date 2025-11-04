@@ -87,11 +87,16 @@ public class UIPanelController : MonoBehaviour
         var command = new UIPanelCommand(UIPanelCommand.CommandType.CloseOld, panel);
         commandQueue.Add(command);
     }
-    
+
     public void PushPanel(UIPanel prefab, Dictionary<string, object> parameters = null)
     {
         var command = new UIPanelCommand(UIPanelCommand.CommandType.PushNew, prefab, parameters);
         commandQueue.Add(command);
+    }
+    
+    public int GetCurrentPanelCount()
+    {
+        return panelStack.Count;
     }
 
     private IEnumerator DoShowNewPanel(UIPanel prefab, Dictionary<string, object> parameters)

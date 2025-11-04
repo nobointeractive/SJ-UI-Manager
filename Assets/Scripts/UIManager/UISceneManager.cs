@@ -104,11 +104,16 @@ public class UISceneManager : MonoBehaviour
         flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController);
     }
     #endregion
-    
+
     #region Status Query Methods
     public bool IsAnimating()
     {
         return statusController.IsAnimating();
+    }
+    
+    public int GetCurrentPanelCount()
+    {
+        return panelController.GetCurrentPanelCount();
     }
     #endregion
 
