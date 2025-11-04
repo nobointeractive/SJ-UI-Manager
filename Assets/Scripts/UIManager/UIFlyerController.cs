@@ -25,6 +25,6 @@ public class UIFlyerController : MonoBehaviour
         }
         flyerInstance.gameObject.SetActive(true);
         flyerInstance.transform.position = start.FlyerTarget.transform.position;
-        flyerInstance.Animator.MoveTo(flyerInstance, end, duration);
+        flyerInstance.AppearanceAnimator.MoveTo(flyerInstance, end, duration);
     }
 }

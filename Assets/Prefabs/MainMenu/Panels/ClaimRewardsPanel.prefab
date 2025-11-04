@@ -93,8 +93,8 @@ MonoBehaviour:
   holderTransform: {fileID: 6573920979301791489}
   flyerTarget: {fileID: 6573920979301791489}
   AppearanceAnimation: 0
-  VisibleState: 0
   FlyerAnimation: 5
+  VisibleState: 0
 --- !u!1 &2889862759376881733
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
   PanelHolderType: 0
-  AppearanceAnimation: 0
+  AppearanceAnimation: 1
   WidgetLayoutState: 1
   staticParameters: []
 --- !u!114 &8540751907965669710
@@ -664,5 +664,5 @@ MonoBehaviour:
   holderTransform: {fileID: 7957942659187938258}
   flyerTarget: {fileID: 7957942659187938258}
   AppearanceAnimation: 0
-  VisibleState: 0
   FlyerAnimation: 5
+  VisibleState: 0

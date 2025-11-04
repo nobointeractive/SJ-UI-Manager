@@ -17,12 +17,12 @@ public class UISceneManager : MonoBehaviour
     [Header("References")]
     public Canvas MainCanvas;    
 
-    public UIConfiguration UIConfiguration { get; private set; }
-    public UIWidgetLayout WidgetLayout { get; private set; }
+    public UIConfiguration UIConfiguration { get; private set; }    
 
     private List<Canvas> canvasLayers = new List<Canvas>();
     private UIPanelController panelController;
     private UIFlyerController flyerController;
+    private UIWidgetController widgetController;
 
     #region Singleton Pattern
     private static UISceneManager _instance;
@@ -61,18 +61,18 @@ public class UISceneManager : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration configuration, UIWidgetLayout widgetLayout)
+    public void Initialize(UIConfiguration configuration, UIWidgetController widgetLayout)
     {
         UIConfiguration = configuration;
 
-        GameObject blackeningObject = Instantiate(configuration.BlackeningPrefab, MainCanvas.transform);
+        var blackeningObject = Instantiate(configuration.BlackeningPrefab.gameObject, MainCanvas.transform);
         UIAnimatable blackeningAnimatable = blackeningObject.GetComponent<UIAnimatable>();
         if (blackeningAnimatable != null)
         {
             var animator = UIConfiguration.Animators[(int)blackeningAnimatable.AppearanceAnimation];
             animator.Initialize(blackeningAnimatable);
         }
-        blackeningObject.SetActive(false);
+        blackeningAnimatable.gameObject.SetActive(false);
 
         for (int i = 0; i < (int)UICanvasLayer.Count; i++)
         {
@@ -89,11 +89,11 @@ public class UISceneManager : MonoBehaviour
             canvasLayers.Add(canvas);
         }
 
-        WidgetLayout = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
-        WidgetLayout.Initialize(UIConfiguration);
+        widgetController = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
+        widgetController.Initialize(UIConfiguration);
 
         panelController = this.AddComponent<UIPanelController>();
-        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], WidgetLayout, blackeningAnimatable);
+        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable);
 
         flyerController = this.AddComponent<UIFlyerController>();
         flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay]);
@@ -101,21 +101,15 @@ public class UISceneManager : MonoBehaviour
     #endregion
 
     #region Panel Management Methods
-    public void ShowPanel(int panelIndex, Dictionary<string, object> parameters = null)
-    {
-        UIPanel prefab = UIConfiguration.Panels[panelIndex].prefab;
-        panelController.ShowPanel(prefab, parameters);
-    }
-
     public void ShowPanel(string name, Dictionary<string, object> parameters = null)
     {
-        UIPanel prefab = UIConfiguration.Panels.Find(panel => panel.key == name).prefab;
+        UIPanel prefab = UIConfiguration.GetPanel(name);
         panelController.ShowPanel(prefab, parameters);
     }
 
     public void PushPanel(string name, Dictionary<string, object> parameters = null)
     {
-        UIPanel prefab = UIConfiguration.Panels.Find(panel => panel.key == name).prefab;
+        UIPanel prefab = UIConfiguration.GetPanel(name);
         panelController.PushPanel(prefab, parameters);
     }
     #endregion
@@ -123,11 +117,28 @@ public class UISceneManager : MonoBehaviour
     #region Widget Management Methods
     public void SetLayoutState(int state)
     {
-        if (WidgetLayout != null)
+        if (widgetController != null)
         {
-            WidgetLayout.SetLayoutState(state);
+            widgetController.SetLayoutState(state);
             Debug.Log($"Widget layout state set to: {state}");
         }
+    }
+
+    public void SetWidgetLayoutVisibility(bool visible)
+    {
+        if (widgetController != null)
+        {
+            widgetController.gameObject.SetActive(visible);
+        }
+    }
+
+    public UIWidget GetWidget(string name)
+    {
+        if (widgetController != null)
+        {
+            return widgetController.GetWidget(name);
+        }
+        return null;
     }
     #endregion
 

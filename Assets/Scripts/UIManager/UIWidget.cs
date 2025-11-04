@@ -15,10 +15,6 @@ public class UIWidget : UIAnimatable
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
-    [IntDropdown("AnimationTypes")]
-    public int FlyerAnimation;
-    public UIAnimator FlyerAnimator { get; private set; }
-
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState stayVisibleState = UIWidgetVisibleState.Unknown;
@@ -27,7 +23,7 @@ public class UIWidget : UIAnimatable
     public void Initialize(UIAnimator animator, UIAnimator flyerAnimator)
     {
         flyerAnimator.Initialize(this);
-        FlyerAnimator = Animator;
+        FlyerAnimator = AppearanceAnimator;
         
         animator.Initialize(this);        
     }
@@ -47,11 +43,11 @@ public class UIWidget : UIAnimatable
                 isVisible = stayVisibleState;
                 if (isVisible == UIWidgetVisibleState.Visible)
                 {
-                    animationTimeout = Animator.Show(this);
+                    animationTimeout = AppearanceAnimator.Show(this);
                 }
                 else
                 {
-                    animationTimeout = Animator.Hide(this);
+                    animationTimeout = AppearanceAnimator.Hide(this);
                 }
             }
             return;
@@ -66,11 +62,11 @@ public class UIWidget : UIAnimatable
 
                 if (isVisible == UIWidgetVisibleState.Visible)
                 {
-                    animationTimeout = Animator.Show(this);
+                    animationTimeout = AppearanceAnimator.Show(this);
                 }
                 else
                 {
-                    animationTimeout = Animator.Hide(this);
+                    animationTimeout = AppearanceAnimator.Hide(this);
                 }
             }
         }

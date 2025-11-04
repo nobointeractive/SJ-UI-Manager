@@ -12,18 +12,18 @@ public enum UIWidgetLayoutState
 public class MainMenuSceneController : MonoBehaviour
 {
     public UIConfiguration uiConfiguration;
-    public UIWidgetLayout widgetLayout;
+    public UIWidgetController widgetLayout;
 
     void Awake()
     {
         UISceneManager.Instance.Initialize(uiConfiguration, widgetLayout);
         UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.HideAll);
-        UISceneManager.Instance.WidgetLayout.gameObject.SetActive(false);
+        UISceneManager.Instance.SetWidgetLayoutVisibility(false);
     }
 
     private void Start()
     {
-        UISceneManager.Instance.ShowPanel("Splash", new Dictionary<string, object>
+        UISceneManager.Instance.ShowPanel("SplashPanel", new Dictionary<string, object>
         {
             { "OnComplete", new System.Action(ShowMainMenu) }
         });
@@ -31,10 +31,10 @@ public class MainMenuSceneController : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        UISceneManager.Instance.WidgetLayout.gameObject.SetActive(true);
+        UISceneManager.Instance.SetWidgetLayoutVisibility(true);
         UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.ShowAll);
 
-        UISceneManager.Instance.PushPanel("ClaimRewards");
-        UISceneManager.Instance.PushPanel("Update");
+        UISceneManager.Instance.PushPanel("ClaimRewardsPanel");
+        UISceneManager.Instance.PushPanel("UpdatePanel");
     }
 }

@@ -27,7 +27,7 @@ public class UIPanelController : MonoBehaviour
 
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
-    public UIWidgetLayout WidgetLayout { get; private set; }
+    public UIWidgetController WidgetLayout { get; private set; }
     public UIAnimatable BlackeningLayer { get; private set; }
 
     private List<UIPanel> panelStack = new List<UIPanel>();
@@ -64,7 +64,7 @@ public class UIPanelController : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetLayout widgetLayout, UIAnimatable blackeningAnimatable)
+    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIAnimatable blackeningAnimatable)
     {
         UIConfiguration = uiConfiguration;
         MainCanvas = mainCanvas;
@@ -100,7 +100,7 @@ public class UIPanelController : MonoBehaviour
             if (prevPanel.VisibilityState == UIPanelVisibilityState.Shown)
             {
                 prevPanel.VisibilityState = UIPanelVisibilityState.Hidden;
-                animationTimeout = prevPanel.PanelHolder.Animator.Hide(prevPanel.PanelHolder);
+                animationTimeout = prevPanel.PanelHolder.AppearanceAnimator.Hide(prevPanel.PanelHolder);
                 if (animationTimeout > 0f)
                 {
                     yield return new WaitForSeconds(animationTimeout);
@@ -115,7 +115,7 @@ public class UIPanelController : MonoBehaviour
         panelStack.Add(panel);
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
-        animationTimeout = holder.Animator.Show(panel.PanelHolder);
+        animationTimeout = holder.AppearanceAnimator.Show(panel.PanelHolder);
         WidgetLayout.SetLayoutState(panel.WidgetLayoutState);
 
         if (!isBlackeningShown)
@@ -147,7 +147,7 @@ public class UIPanelController : MonoBehaviour
             panel.gameObject.SendMessage("OnPanelClosed", SendMessageOptions.DontRequireReceiver);
 
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
-            animationTimeout = panel.PanelHolder.Animator.Hide(panel.PanelHolder);
+            animationTimeout = panel.PanelHolder.AppearanceAnimator.Hide(panel.PanelHolder);
             yield return new WaitForSeconds(animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations);
             panelsToRemove.Add(panel);
         }
@@ -161,7 +161,7 @@ public class UIPanelController : MonoBehaviour
             topPanel.transform.SetAsLastSibling();
             topPanel.VisibilityState = UIPanelVisibilityState.Shown;
             topPanel.PanelHolder.gameObject.SetActive(true);
-            animationTimeout = topPanel.PanelHolder.Animator.Show(topPanel.PanelHolder);
+            animationTimeout = topPanel.PanelHolder.AppearanceAnimator.Show(topPanel.PanelHolder);
             WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
         }
 
@@ -300,13 +300,13 @@ public class UIPanelController : MonoBehaviour
     public void ShowBlackening()
     {
         isBlackeningShown = true;
-        BlackeningLayer.Animator.Show(BlackeningLayer);
+        BlackeningLayer.AppearanceAnimator.Show(BlackeningLayer);
     }
 
     public void HideBlackening()
     {
         isBlackeningShown = false;
-        BlackeningLayer.Animator.Hide(BlackeningLayer);
+        BlackeningLayer.AppearanceAnimator.Hide(BlackeningLayer);
     }
     #endregion
 }

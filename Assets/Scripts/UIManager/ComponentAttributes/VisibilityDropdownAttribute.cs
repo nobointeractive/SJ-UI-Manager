@@ -4,6 +4,7 @@ using UnityEngine;
 public class VisibilityDropdownAttribute : PropertyAttribute
 {
     public string providerName;
+    
     public VisibilityDropdownAttribute(string providerName = null)
     {
         this.providerName = providerName;

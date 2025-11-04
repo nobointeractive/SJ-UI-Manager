@@ -9,7 +9,11 @@ public class UIAnimatable : MonoBehaviour
     [IntDropdown("AnimationTypes")]
     public int AppearanceAnimation;
 
-    public UIAnimator Animator { get; set; }
+    public UIAnimator AppearanceAnimator { get; set; }
+
+    [IntDropdown("AnimationTypes")]
+    public int FlyerAnimation;
+    public UIAnimator FlyerAnimator { get; set; }
 
     public Transform[] AnimatableTargets => animatableTargets;
     public Transform HolderTransform => holderTransform;

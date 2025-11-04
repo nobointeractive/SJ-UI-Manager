@@ -10,7 +10,7 @@ public class FlyerMoveAnimator : UIAnimator
         base.Initialize(animatable);
 
         UIAnimator animator = Instantiate(this, animatable.transform);
-        animatable.Animator = animator;
+        animatable.AppearanceAnimator = animator;
     }
 
     public override float Show(UIAnimatable animatable)

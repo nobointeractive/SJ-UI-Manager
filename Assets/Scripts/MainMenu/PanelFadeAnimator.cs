@@ -18,7 +18,7 @@ public class PanelFadeAnimator : UIAnimator
         }
 
         UIAnimator animator = Instantiate<UIAnimator>(this, animatable.transform);
-        animatable.Animator = animator;
+        animatable.AppearanceAnimator = animator;
     }
 
     public override float Show(UIAnimatable animatable)

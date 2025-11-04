@@ -4,6 +4,6 @@ public class StarsButtonController : MonoBehaviour
 {
     public void OnButtonClicked()
     {
-        UISceneManager.Instance.ShowPanel("Stars");
+        UISceneManager.Instance.ShowPanel("StarsPanel");
     }
 }

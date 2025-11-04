@@ -9,7 +9,7 @@ public class ClaimRewardsPanelController : MonoBehaviour
     {
         GetComponent<UIPanel>().ClosePanel();
 
-        UISceneManager.Instance.PlayFlyer("Coin", coinRewardWidget, UISceneManager.Instance.WidgetLayout.GetWidget("CoinsBar"), 1.0f);
-        UISceneManager.Instance.PlayFlyer("Star", starRewardWidget, UISceneManager.Instance.WidgetLayout.GetWidget("StarsBar"), 1.0f);
+        UISceneManager.Instance.PlayFlyer("Coin", coinRewardWidget, UISceneManager.Instance.GetWidget("CoinsBar"), 1.0f);
+        UISceneManager.Instance.PlayFlyer("Star", starRewardWidget, UISceneManager.Instance.GetWidget("StarsBar"), 1.0f);
     }
 }

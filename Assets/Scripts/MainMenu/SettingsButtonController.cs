@@ -4,6 +4,6 @@ public class SettingsButtonController : MonoBehaviour
 {
     public void OnSettingsButtonClicked()
     {
-        UISceneManager.Instance.ShowPanel("Settings");
+        UISceneManager.Instance.ShowPanel("SettingsPanel");
     }
 }

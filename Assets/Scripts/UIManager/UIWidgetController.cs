@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UIWidgetLayout : MonoBehaviour
+public class UIWidgetController : MonoBehaviour
 {
     public UIConfiguration UIConfiguration { get; private set; }
     [SerializeField] protected UIWidget[] widgets;

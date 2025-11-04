@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: GameUIConfiguration
   m_EditorClassIdentifier: Assembly-CSharp::GameUIConfiguration
   panels:
-  - key: Splash
-    prefab: {fileID: 2862851964968701737, guid: 56fe7a04e449849c79c4c06e9e0e65d3, type: 3}
-  - key: Settings
-    prefab: {fileID: 5152494583042993419, guid: d227e85aa95d64ce1be99d3c8665fa0a, type: 3}
-  - key: Update
-    prefab: {fileID: 5152494583042993419, guid: 7c99b9687e9fc4871aa754ce3311da95, type: 3}
-  - key: Play
-    prefab: {fileID: 5152494583042993419, guid: 47362659674ff4097a9ab87aff2e9b5a, type: 3}
-  - key: Stars
-    prefab: {fileID: 5152494583042993419, guid: 222b82a5e1c7c4e82baf334e910a7eb5, type: 3}
-  - key: ClaimRewards
-    prefab: {fileID: 2862851964968701737, guid: ea7bf0d081264485aa440a128a3d11d4, type: 3}
+  - {fileID: 2862851964968701737, guid: ea7bf0d081264485aa440a128a3d11d4, type: 3}
+  - {fileID: 5152494583042993419, guid: 47362659674ff4097a9ab87aff2e9b5a, type: 3}
+  - {fileID: 5152494583042993419, guid: d227e85aa95d64ce1be99d3c8665fa0a, type: 3}
+  - {fileID: 2862851964968701737, guid: 56fe7a04e449849c79c4c06e9e0e65d3, type: 3}
+  - {fileID: 5152494583042993419, guid: 222b82a5e1c7c4e82baf334e910a7eb5, type: 3}
+  - {fileID: 5152494583042993419, guid: 7c99b9687e9fc4871aa754ce3311da95, type: 3}
   panelHolders:
   - {fileID: 5687334237881962354, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
   - {fileID: 3839705701060809302, guid: 287019c71d5ee4a2f8d745afcfed2394, type: 3}
@@ -39,6 +33,6 @@ MonoBehaviour:
   flyers:
   - {fileID: 8148924628221827911, guid: 19240541f198a4dccaf0eae28dc2047f, type: 3}
   - {fileID: 934190555392178301, guid: 6905e9cee74ba4b42b9be24fd58568c9, type: 3}
-  blackeningPrefab: {fileID: 6539956857196400323, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
+  blackeningPrefab: {fileID: 842370530415135841, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
   DefaultWidgetLayoutState: 2
   PanelDelayTimeScaleBetweenAnimations: 0.5
