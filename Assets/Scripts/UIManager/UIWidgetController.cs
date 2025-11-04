@@ -3,15 +3,16 @@ using UnityEngine;
 public class UIWidgetController : MonoBehaviour
 {
     public UIConfiguration UIConfiguration { get; private set; }
+    public UIStatusController StatusController { get; private set; }
     [SerializeField] protected UIWidget[] widgets;
 
     private int currentState = -1;
     private int nextState = -1;   
-    private float animationTimeout = 0f;
 
-    public void Initialize(UIConfiguration configuration)
+    public void Initialize(UIConfiguration configuration, UIStatusController statusController)
     {
         UIConfiguration = configuration;
+        StatusController = statusController;
         currentState = -1;
 
         foreach (UIWidget widget in widgets)
@@ -24,22 +25,20 @@ public class UIWidgetController : MonoBehaviour
 
     public void Update()
     {
-        if (animationTimeout > 0f)
+        if (nextState != -1 && nextState != currentState)
         {
-            animationTimeout -= Time.deltaTime;
-        }
-        else
-        {
-            if (nextState != -1 && nextState != currentState)
-            {
-                currentState = nextState;
-                nextState = -1;
+            currentState = nextState;
+            nextState = -1;
 
-                foreach (UIWidget widget in widgets)
-                {
-                    widget.SetLayoutState(currentState);
-                }
+            foreach (UIWidget widget in widgets)
+            {
+                widget.SetLayoutState(currentState);
             }
+        }
+
+        foreach (UIWidget widget in widgets)
+        {
+            StatusController.TrackAnimationEndingTime(widget.AnimationTimeout);
         }
     }
 

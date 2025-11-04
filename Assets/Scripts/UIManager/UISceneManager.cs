@@ -17,9 +17,11 @@ public class UISceneManager : MonoBehaviour
     [Header("References")]
     public Canvas MainCanvas;    
 
-    public UIConfiguration UIConfiguration { get; private set; }    
+    public UIConfiguration UIConfiguration { get; private set; }
 
     private List<Canvas> canvasLayers = new List<Canvas>();
+
+    private UIStatusController statusController;
     private UIPanelController panelController;
     private UIFlyerController flyerController;
     private UIWidgetController widgetController;
@@ -69,7 +71,7 @@ public class UISceneManager : MonoBehaviour
         UIAnimatable blackeningAnimatable = blackeningObject.GetComponent<UIAnimatable>();
         if (blackeningAnimatable != null)
         {
-            blackeningAnimatable.AttachAppearanceAnimator(UIConfiguration.Animators[(int)blackeningAnimatable.AppearanceAnimation]);            
+            blackeningAnimatable.AttachAppearanceAnimator(UIConfiguration.Animators[(int)blackeningAnimatable.AppearanceAnimation]);
         }
         blackeningAnimatable.gameObject.SetActive(false);
 
@@ -83,19 +85,30 @@ public class UISceneManager : MonoBehaviour
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchorMax = Vector2.one;
             rectTransform.offsetMin = Vector2.zero;
-            rectTransform.offsetMax = Vector2.zero;  
+            rectTransform.offsetMax = Vector2.zero;
 
             canvasLayers.Add(canvas);
         }
 
+        var statusControllerObject = new GameObject("UIStatusController");
+        statusControllerObject.transform.SetParent(transform, false);
+        statusController = statusControllerObject.AddComponent<UIStatusController>();
+
         widgetController = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
-        widgetController.Initialize(UIConfiguration);
+        widgetController.Initialize(UIConfiguration, statusController);
 
         panelController = this.AddComponent<UIPanelController>();
-        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable);
+        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable, statusController);
 
         flyerController = this.AddComponent<UIFlyerController>();
-        flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay]);
+        flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController);
+    }
+    #endregion
+    
+    #region Status Query Methods
+    public bool IsAnimating()
+    {
+        return statusController.IsAnimating();
     }
     #endregion
 

@@ -31,6 +31,11 @@ public class UIWidget : UIAnimatable
         gameObject.SetActive(IsAvailable);
     }
 
+    public float AnimationTimeout
+    {
+        get { return animationTimeout; }
+    }
+
     public void Update()
     {
         if (animationTimeout > 0f)
