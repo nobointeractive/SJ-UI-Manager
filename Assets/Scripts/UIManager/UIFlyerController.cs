@@ -16,8 +16,8 @@ public class UIFlyerController : MonoBehaviour
     public void Play(UIAnimatable prefab, UIWidget start, UIWidget end, float duration)
     {
         UIAnimatable flyerInstance = Instantiate(prefab, MainCanvas.transform);
-        var animator = UIConfiguration.Animators[(int)flyerInstance.AppearanceAnimation];
-        animator.Initialize(flyerInstance);
+        flyerInstance.AttachAppearanceAnimator(UIConfiguration.Animators[flyerInstance.AppearanceAnimation]);
+        flyerInstance.AttachFlyerAnimator(UIConfiguration.Animators[flyerInstance.FlyerAnimation]);
 
         if (start.FlyerAnimator != null)
         {
@@ -25,6 +25,6 @@ public class UIFlyerController : MonoBehaviour
         }
         flyerInstance.gameObject.SetActive(true);
         flyerInstance.transform.position = start.FlyerTarget.transform.position;
-        flyerInstance.AppearanceAnimator.MoveTo(flyerInstance, end, duration);
+        flyerInstance.FlyerAnimator.MoveTo(flyerInstance, end, duration);
     }
 }

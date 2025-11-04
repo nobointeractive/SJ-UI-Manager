@@ -6,6 +6,7 @@ public class PanelFadeAnimator : UIAnimator
 {
     public override void Initialize(UIAnimatable animatable)
     {
+        base.Initialize(animatable);
         if (animatable == null) return;
         foreach (var target in animatable.AnimatableTargets)
         {
@@ -16,9 +17,6 @@ public class PanelFadeAnimator : UIAnimator
             }
             cg.alpha = 0;
         }
-
-        UIAnimator animator = Instantiate<UIAnimator>(this, animatable.transform);
-        animatable.AppearanceAnimator = animator;
     }
 
     public override float Show(UIAnimatable animatable)

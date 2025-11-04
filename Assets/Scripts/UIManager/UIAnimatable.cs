@@ -9,13 +9,27 @@ public class UIAnimatable : MonoBehaviour
     [IntDropdown("AnimationTypes")]
     public int AppearanceAnimation;
 
-    public UIAnimator AppearanceAnimator { get; set; }
+    public UIAnimator AppearanceAnimator { get; private set; }
 
     [IntDropdown("AnimationTypes")]
     public int FlyerAnimation;
-    public UIAnimator FlyerAnimator { get; set; }
+    public UIAnimator FlyerAnimator { get; private set; }
 
     public Transform[] AnimatableTargets => animatableTargets;
     public Transform HolderTransform => holderTransform;
     public Transform FlyerTarget => flyerTarget;
+
+    public virtual void AttachAppearanceAnimator(UIAnimator animatorPrefab)
+    {
+        UIAnimator animator = Instantiate<UIAnimator>(animatorPrefab, transform);
+        animator.Initialize(this);
+        AppearanceAnimator = animator;
+    }
+
+    public virtual void AttachFlyerAnimator(UIAnimator animatorPrefab)
+    {
+        UIAnimator animator = Instantiate<UIAnimator>(animatorPrefab, transform);
+        animator.Initialize(this);
+        FlyerAnimator = animator;
+    }
 }

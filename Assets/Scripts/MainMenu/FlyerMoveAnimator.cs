@@ -8,35 +8,12 @@ public class FlyerMoveAnimator : UIAnimator
     public override void Initialize(UIAnimatable animatable)
     {
         base.Initialize(animatable);
-
-        UIAnimator animator = Instantiate(this, animatable.transform);
-        animatable.AppearanceAnimator = animator;
-    }
-
-    public override float Show(UIAnimatable animatable)
-    {
-        if (animatable == null) return 0;
-        foreach (var target in animatable.AnimatableTargets)
-        {
-            target.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).From(Vector3.zero);
-        }
-        return 0.3f;
-    }
-
-    public override float Hide(UIAnimatable animatable)
-    {
-        if (animatable == null) return 0;
-        foreach (var target in animatable.AnimatableTargets)
-        {
-            target.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
-        }
-        return 0.3f;
     }
 
     public override float MoveTo(UIAnimatable animatable, UIWidget destination, float duration = 1f)
     {
         if (animatable == null || destination == null) return 0;
-        Show(animatable);
+        animatable.AppearanceAnimator.Show(animatable);
         StartCoroutine(DOMoveTo(animatable, destination, duration));
         return duration;
     }
@@ -64,7 +41,7 @@ public class FlyerMoveAnimator : UIAnimator
             yield return null;
         }
 
-        Hide(animatable);
+        animatable.AppearanceAnimator.Hide(animatable);
         float hideDuration = destination.FlyerAnimator.Hide(destination);
 
         yield return new WaitForSeconds(hideDuration);

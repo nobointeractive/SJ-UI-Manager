@@ -5,7 +5,6 @@ public class UIAnimator : MonoBehaviour
 {
     public virtual void Initialize(UIAnimatable animatable)
     {
-        animatable.AppearanceAnimator = this;
     }
 
     public virtual float Show(UIAnimatable animatable)

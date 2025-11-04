@@ -10,7 +10,7 @@ public class UIPanelHolder : UIAnimatable
         gameObject.SetActive(true);
 
         this.panel = panel;
-        animator.Initialize(this);
+        AttachAppearanceAnimator(animator);
 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;

@@ -92,4 +92,5 @@ MonoBehaviour:
   - {fileID: 8843659283021311209}
   holderTransform: {fileID: 0}
   flyerTarget: {fileID: 0}
-  AppearanceAnimation: 6
+  AppearanceAnimation: 2
+  FlyerAnimation: 6

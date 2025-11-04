@@ -20,12 +20,10 @@ public class UIWidget : UIAnimatable
     private UIWidgetVisibleState stayVisibleState = UIWidgetVisibleState.Unknown;
     private float animationTimeout = 0f;
 
-    public void Initialize(UIAnimator animator, UIAnimator flyerAnimator)
+    public void Initialize(UIAnimator appearanceAnimator, UIAnimator flyerAnimator)
     {
-        flyerAnimator.Initialize(this);
-        FlyerAnimator = AppearanceAnimator;
-        
-        animator.Initialize(this);        
+        AttachAppearanceAnimator(appearanceAnimator);
+        AttachFlyerAnimator(flyerAnimator);
     }
 
     public void Update()
