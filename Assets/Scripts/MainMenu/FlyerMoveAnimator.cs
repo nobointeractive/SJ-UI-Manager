@@ -65,6 +65,9 @@ public class FlyerMoveAnimator : UIAnimator
         }
 
         Hide(animatable);
+        float hideDuration = destination.FlyerAnimator.Hide(destination);
+
+        yield return new WaitForSeconds(hideDuration);
         destination.StopKeepingVisible();
     }
 }

@@ -17,15 +17,19 @@ public class UIWidget : UIAnimatable
 
     [IntDropdown("AnimationTypes")]
     public int FlyerAnimation;
+    public UIAnimator FlyerAnimator { get; private set; }
 
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState stayVisibleState = UIWidgetVisibleState.Unknown;
     private float animationTimeout = 0f;
 
-    public void Initialize(UIAnimator animator)
+    public void Initialize(UIAnimator animator, UIAnimator flyerAnimator)
     {
-        animator.Initialize(this);
+        flyerAnimator.Initialize(this);
+        FlyerAnimator = Animator;
+        
+        animator.Initialize(this);        
     }
 
     public void Update()
