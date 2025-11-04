@@ -88,10 +88,10 @@ public class UISceneManager : MonoBehaviour
         widgetController = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
         widgetController.Initialize(UIConfiguration, statusController);
 
-        panelController = this.AddComponent<UIPanelController>();
+        panelController = gameObject.AddComponent<UIPanelController>();
         panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable, statusController);
 
-        flyerController = this.AddComponent<UIFlyerController>();
+        flyerController = gameObject.AddComponent<UIFlyerController>();
         flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController);
     }
     #endregion
