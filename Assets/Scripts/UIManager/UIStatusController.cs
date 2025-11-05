@@ -6,13 +6,13 @@ public class UIStatusController : MonoBehaviour
 
     public bool IsAnimating()
     {
-        return Time.timeSinceLevelLoad < animationEndingTime;
+        return Time.realtimeSinceStartup < animationEndingTime;
     }
 
     public void TrackAnimationEndingTime(float time)
     {
         if (time <= 0f) return;
-        float endingTime = Time.timeSinceLevelLoad + time;
+        float endingTime = Time.realtimeSinceStartup + time;
         if (endingTime > animationEndingTime)
         {
             animationEndingTime = endingTime;
