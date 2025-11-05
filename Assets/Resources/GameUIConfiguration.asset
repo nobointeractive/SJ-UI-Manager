@@ -32,8 +32,11 @@ MonoBehaviour:
   - {fileID: 6032333982435247331, guid: 23e93f8271de744188e03c3d4909002d, type: 3}
   - {fileID: 4126968125720359379, guid: b2dd1fa3384e54fbf922dfaca8769463, type: 3}
   flyers:
-  - {fileID: 8148924628221827911, guid: 19240541f198a4dccaf0eae28dc2047f, type: 3}
-  - {fileID: 934190555392178301, guid: 6905e9cee74ba4b42b9be24fd58568c9, type: 3}
+  - {fileID: -2145903462201800228, guid: 19240541f198a4dccaf0eae28dc2047f, type: 3}
+  - {fileID: 6887535942193209987, guid: 6905e9cee74ba4b42b9be24fd58568c9, type: 3}
+  audioSets:
+  - {fileID: 11400000, guid: 0f3df4332474e4ce88d6312a7e0c8722, type: 2}
+  - {fileID: 11400000, guid: 3e120c481131d41819e4335e98f03fb8, type: 2}
   blackeningPrefab: {fileID: 842370530415135841, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
   DefaultWidgetLayoutState: 2
   PanelDelayTimeScaleBetweenAnimations: 0.5

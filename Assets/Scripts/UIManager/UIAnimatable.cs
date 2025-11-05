@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIAnimatable : MonoBehaviour
@@ -17,6 +18,11 @@ public class UIAnimatable : MonoBehaviour
 
     public virtual void AttachAppearanceAnimator(UIAnimator animatorPrefab)
     {
+        if (animatorPrefab == null)
+        {
+            return;
+        }
+
         if (AppearanceAnimator != null)
         {
             if (AppearanceAnimator.OriginalPrefab == animatorPrefab.gameObject)
@@ -33,6 +39,11 @@ public class UIAnimatable : MonoBehaviour
 
     public virtual void AttachFlyerAnimator(UIAnimator animatorPrefab)
     {
+        if (animatorPrefab == null)
+        {
+            return;
+        }
+        
         if (FlyerAnimator != null)
         {
             if (FlyerAnimator.OriginalPrefab == animatorPrefab.gameObject)
@@ -57,8 +68,18 @@ public class UIAnimatable : MonoBehaviour
         return AppearanceAnimator?.Hide(this) ?? 0f;
     }
 
-    public virtual float AnimateMoveTo(UIWidget departure, UIWidget destination, float duration = 1f)
+    public virtual float AnimateLaunch()
     {
-        return FlyerAnimator?.MoveTo(this, departure, destination, duration) ?? 0f;
+        return FlyerAnimator?.LaunchFlyer(this) ?? 0f;
+    }
+
+    public virtual float AnimateLand()
+    {
+        return FlyerAnimator?.LandFlyer(this) ?? 0f;
+    }
+
+    public virtual float AnimateMoveTo(UIWidget departure, UIWidget destination, float duration, Action<float> onComplete = null)
+    {
+        return FlyerAnimator?.MoveTo(this, departure, destination, duration, onComplete) ?? 0f;
     }
 }

@@ -16,13 +16,17 @@ public class MainMenuSceneController : MonoBehaviour
 
     void Awake()
     {
+        // Initialize the UISceneManager with configuration and widget layout prefab
         UISceneManager.Instance.Initialize(uiConfiguration, widgetLayout);
+
+        // Hide the widget layout at the start
         UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.HideAll);
         UISceneManager.Instance.SetWidgetLayoutVisibility(false);
     }
 
     private void Start()
     {
+        // Show the splash panel. This will fake some loading and call ShowMainMenu when done.
         UISceneManager.Instance.ShowPanel("SplashPanel", new Dictionary<string, object>
         {
             { "OnComplete", new System.Action(ShowMainMenu) }
@@ -31,9 +35,12 @@ public class MainMenuSceneController : MonoBehaviour
 
     public void ShowMainMenu()
     {
+        // Show the widget layout and set the state to show all widgets
         UISceneManager.Instance.SetWidgetLayoutVisibility(true);
         UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.ShowAll);
 
+        // Show some panels that are automatically displayed in some cases.
+        // PushPanel means they are pushed to the stack and wait for current panel to close before showing.
         UISceneManager.Instance.PushPanel("ClaimRewardsPanel");
         UISceneManager.Instance.PushPanel("UpdatePanel");
     }

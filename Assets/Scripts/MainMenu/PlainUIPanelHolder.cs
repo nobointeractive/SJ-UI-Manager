@@ -10,6 +10,7 @@ public class PlainUIPanelHolder : UIPanelHolder
     {
         base.Initialize(animator, panel);
 
+        // Set the title if provided in static parameters of the panel data
         var staticParameters = panel.StaticParameters;
         if (staticParameters != null && staticParameters.ContainsKey("Title"))
         {

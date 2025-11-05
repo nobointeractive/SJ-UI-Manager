@@ -7,7 +7,8 @@ public class UIConfiguration : ScriptableObject
     [SerializeField] private List<UIPanel> panels;
     [SerializeField] private List<UIPanelHolder> panelHolders;
     [SerializeField] private List<UIAnimator> animators;
-    [SerializeField] private List<UIAnimatable> flyers;
+    [SerializeField] private List<UIFlyer> flyers;
+    [SerializeField] private List<UIAudioSet> audioSets;
     [SerializeField] private UIAnimatable blackeningPrefab;
 
     [IntDropdown("WidgetLayoutStates")]
@@ -18,7 +19,7 @@ public class UIConfiguration : ScriptableObject
     public List<UIPanel> Panels => panels;
     public List<UIPanelHolder> PanelHolders => panelHolders;
     public List<UIAnimator> Animators => animators;
-    public List<UIAnimatable> Flyers => flyers;
+    public List<UIFlyer> Flyers => flyers;
     public UIAnimatable BlackeningPrefab => blackeningPrefab;
 
     public UIPanel GetPanel(string name)
@@ -26,8 +27,34 @@ public class UIConfiguration : ScriptableObject
         return panels.Find(panel => panel.name.Equals(name));
     }
 
-    public UIAnimatable GetFlyer(string name)
+    public UIFlyer GetFlyer(string name)
     {
         return flyers.Find(flyer => flyer.name.Equals(name));
+    }
+
+    public UIAnimator GetAnimator(int index)
+    {
+        if (index >= 0 && index < animators.Count)
+        {
+            return animators[index];
+        }
+        return null;
+    }
+
+    public UIAnimator GetAnimator(int index1, int index2)
+    {
+        UIAnimator selected = null;
+        if (index1 >= 0 && index1 < animators.Count)
+        {
+            selected = animators[index1];
+        }
+        if (index1 == 0 || selected == null)
+        {
+            if (index2 > 0 && index2 < animators.Count)
+            {
+                selected = animators[index2];
+            }
+        }
+        return selected;
     }
 }

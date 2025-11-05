@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 7151349872472479245}
   - component: {fileID: 1321661836361680836}
   - component: {fileID: 1961832895686088779}
-  - component: {fileID: 8148924628221827911}
+  - component: {fileID: -2145903462201800228}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7151349872472479245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8148924628221827911
+--- !u!114 &-2145903462201800228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,12 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4601555873708357128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30945cacdc85444a9c41030a7c7aba9, type: 3}
+  m_Script: {fileID: 11500000, guid: 25f0b17e815494080b101d0b8f39372f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIAnimatable
+  m_EditorClassIdentifier: UIManager::UIFlyer
   animatableTargets:
   - {fileID: 7151349872472479245}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
   AppearanceAnimation: 2
   FlyerAnimation: 6

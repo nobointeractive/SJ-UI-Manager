@@ -57,7 +57,7 @@ public class UIPanel : MonoBehaviour
     public void Initialize(UIPanelController controller, UIPanelHolder holder, Dictionary<string, object> parameters)
     {
         gameObject.SetActive(true);
-        
+
         panelController = controller;
         panelHolder = holder;
         if (parameters == null)
@@ -65,6 +65,11 @@ public class UIPanel : MonoBehaviour
             parameters = new Dictionary<string, object>();
         }
         SendMessage("OnPanelInitialized", parameters, SendMessageOptions.DontRequireReceiver);
+    }
+    
+    public void Deinitialize()
+    {
+        SendMessage("OnPanelClosed", SendMessageOptions.DontRequireReceiver);
     }
     #endregion
 

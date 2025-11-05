@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +16,9 @@ public class UISceneManager : MonoBehaviour
     public Canvas MainCanvas;    
 
     public UIConfiguration UIConfiguration { get; private set; }
+    public AudioSource AudioPlayer { get; private set; }
 
     private List<Canvas> canvasLayers = new List<Canvas>();
-
     private UIStatusController statusController;
     private UIPanelController panelController;
     private UIFlyerController flyerController;
@@ -54,15 +52,16 @@ public class UISceneManager : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration configuration, UIWidgetController widgetLayout)
+    public void Initialize(UIConfiguration configuration, UIWidgetController widgetLayout, AudioSource audioSource = null)
     {
         UIConfiguration = configuration;
+        AudioPlayer = audioSource;
 
         var blackeningObject = Instantiate(configuration.BlackeningPrefab.gameObject, MainCanvas.transform);
         UIAnimatable blackeningAnimatable = blackeningObject.GetComponent<UIAnimatable>();
         if (blackeningAnimatable != null)
         {
-            blackeningAnimatable.AttachAppearanceAnimator(UIConfiguration.Animators[(int)blackeningAnimatable.AppearanceAnimation]);
+            blackeningAnimatable.AttachAppearanceAnimator(UIConfiguration.GetAnimator(blackeningAnimatable.AppearanceAnimation));
         }
         blackeningAnimatable.gameObject.SetActive(false);
 
@@ -89,7 +88,7 @@ public class UISceneManager : MonoBehaviour
         widgetController.Initialize(UIConfiguration, statusController);
 
         panelController = gameObject.AddComponent<UIPanelController>();
-        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable, statusController);
+        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable, statusController, AudioPlayer);
 
         flyerController = gameObject.AddComponent<UIFlyerController>();
         flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController);
@@ -153,7 +152,7 @@ public class UISceneManager : MonoBehaviour
     #region Flyer Management Methods
     public void PlayFlyer(string flyerName, UIWidget start, UIWidget end, float duration)
     {
-        UIAnimatable flyerPrefab = UIConfiguration.GetFlyer(flyerName);
+        UIFlyer flyerPrefab = UIConfiguration.GetFlyer(flyerName);
         if (flyerPrefab != null)
         {
             flyerController.Play(flyerPrefab, start, end, duration);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class UIFlyerController : MonoBehaviour
     public UIConfiguration UIConfiguration { get; private set; }
     public UIStatusController StatusController { get; private set; }
 
+    private Dictionary<string, Stack<UIFlyer>> flyersPool = new Dictionary<string, Stack<UIFlyer>>();
+
     public void Initialize(UIConfiguration configuration, Canvas overlayCanvas, UIStatusController statusController)
     {
         UIConfiguration = configuration;
@@ -15,18 +18,61 @@ public class UIFlyerController : MonoBehaviour
         StatusController = statusController;
     }
 
-    public void Play(UIAnimatable prefab, UIWidget start, UIWidget end, float duration)
+    public void Play(UIFlyer prefab, UIWidget departure, UIWidget destination, float duration)
     {
-        UIAnimatable flyerInstance = Instantiate(prefab, MainCanvas.transform);
-        flyerInstance.AttachAppearanceAnimator(UIConfiguration.Animators[flyerInstance.AppearanceAnimation]);
-        flyerInstance.AttachFlyerAnimator(UIConfiguration.Animators[flyerInstance.FlyerAnimation]);
+        UIFlyer flyerInstance = createFlyerInstance(prefab);
+        flyerInstance.Initialize();
 
-        if (start.FlyerAnimator != null)
+        destination.KeepVisible();
+        departure.AnimateLaunch();        
+        float timeout = flyerInstance.AnimateMoveTo(departure, destination, duration, (hideDuration) =>
         {
-            start.AnimateShow();
-        }
-        flyerInstance.gameObject.SetActive(true);
-        float timeout = flyerInstance.AnimateMoveTo(start, end, duration);
+            StartCoroutine(LandFlyer(flyerInstance, destination, hideDuration));
+        });
         StatusController.TrackAnimationEndingTime(timeout);
+    }
+
+    private IEnumerator LandFlyer(UIFlyer flyerInstance, UIWidget destination, float hideDuration)
+    {
+        float landDuration = destination.AnimateLand();
+        yield return new WaitForSeconds(Mathf.Max(landDuration, hideDuration));
+        destination.StopKeepingVisible();
+
+        flyerInstance.Reset();
+        recycleFlyerInstance(flyerInstance);
+    }
+
+    private UIFlyer createFlyerInstance(UIFlyer prefab)
+    {
+        UIFlyer flyerInstance;
+
+        if (!flyersPool.ContainsKey(prefab.name))
+        {
+            flyersPool[prefab.name] = new Stack<UIFlyer>();
+        }
+
+        if (flyersPool[prefab.name].Count > 0)
+        {
+            flyerInstance = flyersPool[prefab.name].Pop();
+        }
+        else
+        {
+            flyerInstance = Instantiate(prefab, MainCanvas.transform);
+        }
+
+        flyerInstance.AttachAppearanceAnimator(UIConfiguration.GetAnimator(flyerInstance.AppearanceAnimation));
+        flyerInstance.AttachFlyerAnimator(UIConfiguration.GetAnimator(flyerInstance.FlyerAnimation));
+        flyerInstance.gameObject.SetActive(true);
+        return flyerInstance;
+    }
+    
+    private void recycleFlyerInstance(UIFlyer flyerInstance)
+    {
+        if (!flyersPool.ContainsKey(flyerInstance.name))
+        {
+            flyersPool[flyerInstance.name] = new Stack<UIFlyer>();
+        }
+        flyerInstance.gameObject.SetActive(false);
+        flyersPool[flyerInstance.name].Push(flyerInstance);
     }
 }

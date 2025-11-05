@@ -25,6 +25,7 @@ public class UIPanelController : MonoBehaviour
         }
     }
 
+    public AudioSource AudioPlayer { get; private set; }
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
     public UIWidgetController WidgetLayout { get; private set; }
@@ -51,8 +52,8 @@ public class UIPanelController : MonoBehaviour
             }
             else
             {
-                ProcessPanelsToRemove();
-                ProcessCommandQueue();
+                processPanelsToRemove();
+                processCommandQueue();
 
                 if (commandQueue.Count == 0 && panelStack.Count == 0 && isBlackeningShown)
                 {
@@ -65,12 +66,13 @@ public class UIPanelController : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIAnimatable blackeningAnimatable, UIStatusController statusController)
+    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIAnimatable blackeningAnimatable, UIStatusController statusController, AudioSource audioSource)
     {
         UIConfiguration = uiConfiguration;
         MainCanvas = mainCanvas;
         WidgetLayout = widgetLayout;
         BlackeningLayer = blackeningAnimatable;
+        AudioPlayer = audioSource;
         StatusController = statusController;
     }
     #endregion
@@ -99,7 +101,7 @@ public class UIPanelController : MonoBehaviour
         return panelStack.Count;
     }
 
-    private IEnumerator DoShowNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
+    private IEnumerator doShowNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
     {
         if (panelStack.Count > 0)
         {
@@ -116,10 +118,10 @@ public class UIPanelController : MonoBehaviour
             }
         }
 
-        UIPanelHolder holder = CreateNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
-        UIPanel panel = CreateNewPanelInstance(prefab, holder.HolderTransform);        
+        UIPanelHolder holder = createNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
+        UIPanel panel = createNewPanelInstance(prefab, holder.HolderTransform);        
         panel.Initialize(this, holder, parameters);
-        holder.Initialize(UIConfiguration.Animators[(int)prefab.AppearanceAnimation], panel);
+        holder.Initialize(UIConfiguration.GetAnimator(prefab.AppearanceAnimation, holder.AppearanceAnimation), panel);
         panelStack.Add(panel);
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
@@ -135,7 +137,7 @@ public class UIPanelController : MonoBehaviour
         isRunningTransition = false;
     }
 
-    private IEnumerator DoCloseOldPanel(UIPanel panel)
+    private IEnumerator doCloseOldPanel(UIPanel panel)
     {
         if (!panelStack.Contains(panel))
         {
@@ -152,11 +154,11 @@ public class UIPanelController : MonoBehaviour
         }
 
         if (panel.VisibilityState == UIPanelVisibilityState.Shown)
-        {
-            panel.gameObject.SendMessage("OnPanelClosed", SendMessageOptions.DontRequireReceiver);
-
+        {            
+            panel.Deinitialize();
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
             animationTimeout = panel.PanelHolder.AnimateHide();
+
             StatusController.TrackAnimationEndingTime(animationTimeout);
             yield return new WaitForSeconds(animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations);
             panelsToRemove.Add(panel);
@@ -179,14 +181,14 @@ public class UIPanelController : MonoBehaviour
         isRunningTransition = false;
     }
     
-    private IEnumerator DoPushNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
+    private IEnumerator doPushNewPanel(UIPanel prefab, Dictionary<string, object> parameters)
     {
         if (panelStack.Count > 0)
         {
-            UIPanelHolder holder = CreateNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
-            UIPanel panel = CreateNewPanelInstance(prefab, holder.HolderTransform);
+            UIPanelHolder holder = createNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
+            UIPanel panel = createNewPanelInstance(prefab, holder.HolderTransform);
             panel.Initialize(this, holder, parameters);
-            holder.Initialize(UIConfiguration.Animators[(int)prefab.AppearanceAnimation], panel);
+            holder.Initialize(UIConfiguration.GetAnimator(prefab.AppearanceAnimation, holder.AppearanceAnimation), panel);
             panelStack.Insert(0, panel);
 
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
@@ -196,11 +198,11 @@ public class UIPanelController : MonoBehaviour
         }
         else
         {
-            yield return DoShowNewPanel(prefab, parameters);
+            yield return doShowNewPanel(prefab, parameters);
         }
     }
 
-    private void ProcessCommandQueue()
+    private void processCommandQueue()
     {
         if (commandQueue.Count == 0) return;
 
@@ -211,18 +213,18 @@ public class UIPanelController : MonoBehaviour
         switch (command.Type)
         {
             case UIPanelCommand.CommandType.ShowNew:
-                StartCoroutine(DoShowNewPanel(command.Panel, command.Parameters));
+                StartCoroutine(doShowNewPanel(command.Panel, command.Parameters));
                 break;
             case UIPanelCommand.CommandType.CloseOld:
-                StartCoroutine(DoCloseOldPanel(command.Panel));
+                StartCoroutine(doCloseOldPanel(command.Panel));
                 break;
             case UIPanelCommand.CommandType.PushNew:
-                StartCoroutine(DoPushNewPanel(command.Panel, command.Parameters));
+                StartCoroutine(doPushNewPanel(command.Panel, command.Parameters));
                 break;
         }
     }
     
-    private void ProcessPanelsToRemove()
+    private void processPanelsToRemove()
     {
         if (panelsToRemove.Count == 0) return;
 
@@ -257,7 +259,7 @@ public class UIPanelController : MonoBehaviour
         panelsToRemove.Clear();
     }
 
-    private UIPanelHolder CreateNewPanelHolderInstance(int panelHolderIndex, Transform parent)
+    private UIPanelHolder createNewPanelHolderInstance(int panelHolderIndex, Transform parent)
     {
         var prefab = UIConfiguration.PanelHolders[panelHolderIndex];
         if (!holderPool.ContainsKey(panelHolderIndex))
@@ -281,7 +283,7 @@ public class UIPanelController : MonoBehaviour
         return holder;
     }
 
-    private UIPanel CreateNewPanelInstance(UIPanel prefab, Transform parent)
+    private UIPanel createNewPanelInstance(UIPanel prefab, Transform parent)
     {
         if (!panelPool.ContainsKey(prefab.name))
         {

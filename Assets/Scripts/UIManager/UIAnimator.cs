@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -39,14 +40,16 @@ public class UIAnimator : MonoBehaviour
         return 0;
     }
 
-    public virtual float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
+    public virtual float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration, Action<float> onCompleted)
     {
         if (animatable == null || destination == null) return 0;
-    
+
         foreach (var target in animatable.AnimatableTargets)
         {
             target.position = destination.FlyerTarget.position;
         }
+        
+        onCompleted?.Invoke(0f);
         return duration;
     }
 }

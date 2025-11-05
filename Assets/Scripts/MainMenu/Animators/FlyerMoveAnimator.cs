@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -10,19 +11,16 @@ public class FlyerMoveAnimator : UIAnimator
         base.Initialize(animatable);
     }
 
-    public override float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
+    public override float MoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration, Action<float> onCompleted)
     {
         if (animatable == null || destination == null) return 0;
         animatable.AppearanceAnimator.Show(animatable);
-        StartCoroutine(DOMoveTo(animatable, departure, destination, duration));
+        StartCoroutine(DOMoveTo(animatable, departure, destination, duration, onCompleted));
         return duration;
     }
 
-    private IEnumerator DOMoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration = 1f)
+    private IEnumerator DOMoveTo(UIAnimatable animatable, UIWidget departure, UIWidget destination, float duration, Action<float> onCompleted)
     {
-        destination.KeepVisible();
-
-        departure.FlyerAnimator?.LaunchFlyer(departure);
         animatable.transform.position = departure.FlyerTarget.transform.position;
 
         List<Vector3> startPositions = new List<Vector3>();
@@ -44,10 +42,7 @@ public class FlyerMoveAnimator : UIAnimator
             yield return null;
         }
 
-        float hideDuration = animatable.AppearanceAnimator.Hide(animatable);
-        destination.FlyerAnimator?.LandFlyer(destination);
-
-        yield return new WaitForSeconds(hideDuration);
-        destination.StopKeepingVisible();
+        float hideDuration = animatable.AppearanceAnimator.Hide(animatable);    
+        onCompleted?.Invoke(hideDuration);
     }
 }

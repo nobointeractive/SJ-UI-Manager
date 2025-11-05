@@ -17,5 +17,9 @@
         { "label": "Show All", "value": 2 },
         { "label": "Coins Bar Only", "value": 4 },
         { "label": "Stars Bar Only", "value": 8 }
+    ],
+    "AudioSetTypes": [
+        { "label": "Default", "value": 0 },
+        { "label": "Silent", "value": 1 }
     ]
 }

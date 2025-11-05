@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 8843659283021311209}
   - component: {fileID: 6218016400101716151}
   - component: {fileID: 207184145910796595}
-  - component: {fileID: 934190555392178301}
+  - component: {fileID: 6887535942193209987}
   m_Layer: 5
   m_Name: Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8843659283021311209
 RectTransform:
   m_ObjectHideFlags: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &934190555392178301
+--- !u!114 &6887535942193209987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,12 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4612004987305226438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30945cacdc85444a9c41030a7c7aba9, type: 3}
+  m_Script: {fileID: 11500000, guid: 25f0b17e815494080b101d0b8f39372f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIAnimatable
+  m_EditorClassIdentifier: UIManager::UIFlyer
   animatableTargets:
   - {fileID: 8843659283021311209}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
   AppearanceAnimation: 2
   FlyerAnimation: 6
