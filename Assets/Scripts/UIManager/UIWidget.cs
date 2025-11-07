@@ -12,7 +12,7 @@ public enum UIWidgetVisibleState
 public class UIWidget : MonoBehaviour
 {
     [Header("Settings")]
-    [IntDropdown("PanelHolderTypes")]
+    [IntDropdown("WidgetHolderTypes")]
     public int WidgetHolderType;
 
     [VisibilityDropdown("WidgetLayoutStates")]

@@ -23,7 +23,7 @@ public class IntDropdownDrawer : PropertyDrawer
             return;
         }
 
-        var options = entries ?? new List<AttributeRegistryType.DropdownEntry>();
+        var options = entries ?? new List<DropdownEntry>();
         var labels = options.Select(o => o.label).ToArray();
         var values = options.Select(o => o.value).ToArray();
 

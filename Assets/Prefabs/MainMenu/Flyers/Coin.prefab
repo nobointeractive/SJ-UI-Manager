@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f0b17e815494080b101d0b8f39372f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UIManager::UIFlyer
-  FlyerHolderType: 0
+  FlyerHolderType: -20826
   root: {fileID: 259231786556435836}

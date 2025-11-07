@@ -36,6 +36,11 @@ MonoBehaviour:
   audioSets:
   - {fileID: 11400000, guid: 0f3df4332474e4ce88d6312a7e0c8722, type: 2}
   - {fileID: 11400000, guid: 3e120c481131d41819e4335e98f03fb8, type: 2}
+  widgetLayoutStates:
+  - Hide All
+  - Show All
+  - Coins Bar Only
+  - Stars Bar Only
   blackeningPrefab: {fileID: 8434817159540000756, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
   DefaultWidgetLayoutState: 2
   PanelDelayTimeScaleBetweenAnimations: 0.5

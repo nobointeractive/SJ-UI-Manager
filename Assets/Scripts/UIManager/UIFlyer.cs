@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIFlyer : MonoBehaviour
 {
-    [IntDropdown("PanelHolderTypes")]
+    [IntDropdown("FlyerHolderTypes")]
     public int FlyerHolderType;
 
     [SerializeField] private Transform root;

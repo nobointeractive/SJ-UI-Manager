@@ -10,7 +10,8 @@ public class UIConfiguration : ScriptableObject
     [SerializeField] private List<UIWidgetHolder> widgetHolders;
     [SerializeField] private List<UIFlyerHolder> flyerHolders;
     [SerializeField] private List<UIAudioSet> audioSets;
-    [SerializeField] private UIWidget blackeningPrefab;
+    [SerializeField] private string[] widgetLayoutStates;
+    [SerializeField] private UIWidget blackeningPrefab;    
 
     [IntDropdown("WidgetLayoutStates")]
     public int DefaultWidgetLayoutState;    
@@ -23,6 +24,7 @@ public class UIConfiguration : ScriptableObject
     public List<UIWidgetHolder> WidgetHolders => widgetHolders;
     public List<UIFlyerHolder> FlyerHolders => flyerHolders;
     public UIWidget BlackeningPrefab => blackeningPrefab;
+    public string[] WidgetLayoutStates => widgetLayoutStates;
 
     public UIPanel GetPanel(string name)
     {

@@ -456,8 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3920fec217824c7cb463a79764e2c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
-  PanelHolderType: 1
-  AppearanceAnimation: 2
+  PanelHolderType: 38786
   WidgetLayoutState: 4
   staticParameters:
   - key: Title
