@@ -29,7 +29,7 @@ public class UIPanelController : MonoBehaviour
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
     public UIWidgetController WidgetLayout { get; private set; }
-    public UIPanel BlackeningLayer { get; private set; }
+    public UIWidget BlackeningLayer { get; private set; }
     public UIStatusController StatusController { get; private set; }
 
     private List<UIPanel> panelStack = new List<UIPanel>();
@@ -66,7 +66,7 @@ public class UIPanelController : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIPanel blackeningPanel, UIStatusController statusController, AudioSource audioSource)
+    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIWidget blackeningPanel, UIStatusController statusController, AudioSource audioSource)
     {
         UIConfiguration = uiConfiguration;
         MainCanvas = mainCanvas;
@@ -124,6 +124,7 @@ public class UIPanelController : MonoBehaviour
         holder.Initialize(panel);
         panelStack.Add(panel);
 
+        // Show the new panel
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
         animationTimeout = holder.AnimateShow();
@@ -158,10 +159,9 @@ public class UIPanelController : MonoBehaviour
         float delayBeforeDone = 0f;
         if (panel.VisibilityState == UIPanelVisibilityState.Shown)
         {
-            panel.Deinitialize();
+            panel.CleanUp();
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
             animationTimeout = panel.PanelHolder.AnimateHide();
-
             StatusController.TrackAnimationEndingTime(animationTimeout);
 
             delayBeforeShowingNext = animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations;
@@ -178,7 +178,8 @@ public class UIPanelController : MonoBehaviour
             topPanel.transform.SetAsLastSibling();
             topPanel.VisibilityState = UIPanelVisibilityState.Shown;
             topPanel.PanelHolder.gameObject.SetActive(true);
-            animationTimeout = topPanel.PanelHolder.AnimateShow();
+            float showTimeout = topPanel.PanelHolder.AnimateShow();
+            animationTimeout = Mathf.Max(delayBeforeDone, showTimeout);
             StatusController.TrackAnimationEndingTime(animationTimeout);
             WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
         }
@@ -233,7 +234,7 @@ public class UIPanelController : MonoBehaviour
                 break;
         }
     }
-    
+
     private void processPanelsToRemove()
     {
         if (panelsToRemove.Count == 0) return;
@@ -245,28 +246,36 @@ public class UIPanelController : MonoBehaviour
                 continue;
             }
 
-            var holderIndex = panel.PanelHolderType;
-            if (!holderPool.ContainsKey(holderIndex))
-            {
-                holderPool[holderIndex] = new Stack<UIPanelHolder>();
-            }
-            panel.PanelHolder.transform.SetParent(this.transform, false);
-            panel.PanelHolder.gameObject.SetActive(false);
-            holderPool[holderIndex].Push(panel.PanelHolder);
-
-            var panelPrefabName = panel.name;
-            if (!panelPool.ContainsKey(panelPrefabName))
-            {
-                panelPool[panelPrefabName] = new Stack<UIPanel>();
-            }
-            panel.transform.SetParent(this.transform, false);
-
-            panel.gameObject.SetActive(false);
+            recyclePanelHolder(panel.PanelHolderType, panel.PanelHolder);
+            recyclePanel(panel);            
             panel.VisibilityState = UIPanelVisibilityState.Closed;
-            panelPool[panelPrefabName].Push(panel);            
         }
 
         panelsToRemove.Clear();
+    }
+
+    private void recyclePanel(UIPanel panel)
+    {
+        var panelPrefabName = panel.name;
+        if (!panelPool.ContainsKey(panelPrefabName))
+        {
+            panelPool[panelPrefabName] = new Stack<UIPanel>();
+        }
+        panel.transform.SetParent(this.transform, false);
+        panelPool[panelPrefabName].Push(panel);
+
+        panel.gameObject.SetActive(false);
+    }
+    
+    private void recyclePanelHolder(int panelHolderIndex, UIPanelHolder holder)
+    {
+        if (!holderPool.ContainsKey(panelHolderIndex))
+        {
+            holderPool[panelHolderIndex] = new Stack<UIPanelHolder>();
+        }
+        holder.transform.SetParent(transform, false);
+        holder.gameObject.SetActive(false);
+        holderPool[panelHolderIndex].Push(holder);
     }
 
     private UIPanelHolder createNewPanelHolderInstance(int panelHolderIndex, Transform parent)
@@ -318,19 +327,17 @@ public class UIPanelController : MonoBehaviour
     }
     #endregion
     
-
     #region Blackening Layer Methods
     public void ShowBlackening()
     {
         isBlackeningShown = true;
-        BlackeningLayer.gameObject.SetActive(true);
-        BlackeningLayer.PanelHolder.AnimateShow();
+        BlackeningLayer.SetVisibility(true);
     }
 
     public void HideBlackening()
     {
         isBlackeningShown = false;
-        BlackeningLayer.PanelHolder.AnimateHide();
+        BlackeningLayer.SetVisibility(false);
     }
     #endregion
 }

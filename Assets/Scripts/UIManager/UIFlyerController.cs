@@ -42,7 +42,7 @@ public class UIFlyerController : MonoBehaviour
         yield return new WaitForSeconds(Mathf.Max(landDuration, hideDuration));
         destination.StopKeepingVisible();
 
-        flyerInstance.Reset();
+        flyerInstance.CleanUp();
         recycleFlyerInstance(flyerInstance);
     }
 
@@ -76,6 +76,7 @@ public class UIFlyerController : MonoBehaviour
         {
             flyersPool[prefabName] = new Stack<UIFlyer>();
         }
+        flyerInstance.transform.SetParent(transform, false);
         flyerInstance.gameObject.SetActive(false);
         flyersPool[prefabName].Push(flyerInstance);
     }

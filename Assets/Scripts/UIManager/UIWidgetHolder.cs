@@ -12,13 +12,11 @@ public class UIWidgetHolder : MonoBehaviour
 
     public virtual float AnimateShow()
     {
-        gameObject.SetActive(true);
         return 0f;
     }
 
     public virtual float AnimateHide()
     {
-        gameObject.SetActive(false);
         return 0f;
     }
 

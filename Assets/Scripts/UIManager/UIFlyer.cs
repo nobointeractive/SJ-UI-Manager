@@ -24,7 +24,7 @@ public class UIFlyer : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public virtual void Reset()
+    public virtual void CleanUp()
     {
         gameObject.SetActive(false);
     }

@@ -73,6 +73,7 @@ public class UIWidget : MonoBehaviour
             if (isVisible != UIWidgetVisibleState.Visible)
             {
                 isVisible = UIWidgetVisibleState.Visible;
+                root.gameObject.SetActive(true);
                 animationTimeout = WidgetHolder.AnimateShow();
             }
             return;
@@ -85,6 +86,7 @@ public class UIWidget : MonoBehaviour
                 isVisible = nextIsVisible;
                 nextIsVisible = UIWidgetVisibleState.Unknown;
 
+                root.gameObject.SetActive(true);
                 if (isVisible == UIWidgetVisibleState.Visible)
                 {
                     animationTimeout = WidgetHolder.AnimateShow();
@@ -95,12 +97,33 @@ public class UIWidget : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (isVisible == UIWidgetVisibleState.Hidden)
+            {
+                root.gameObject.SetActive(false);
+            }
+        }
     }
-    
+
     public void SetAvailability(bool available)
     {
         IsAvailable = available;
         gameObject.SetActive(available);
+    }
+    
+    public void SetVisibility(bool visible)
+    {
+        if (visible)
+        {
+            nextIsVisible = UIWidgetVisibleState.Visible;
+            transform.SetAsLastSibling();
+        }
+        else
+        {
+            nextIsVisible = UIWidgetVisibleState.Hidden;
+            transform.SetAsFirstSibling();
+        }
     }
 
     public void SetLayoutState(int state)
@@ -119,11 +142,13 @@ public class UIWidget : MonoBehaviour
     {
         nextIsVisible = isVisible;
         isKeepingVisible = true;
+        transform.SetAsLastSibling();
     }
 
     public void StopKeepingVisible()
     {
         isKeepingVisible = false;
+        transform.SetAsFirstSibling();
     }
 
     public Transform GetFlyerTarget(int index)

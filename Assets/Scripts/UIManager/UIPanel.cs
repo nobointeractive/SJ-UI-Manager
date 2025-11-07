@@ -64,7 +64,7 @@ public class UIPanel : MonoBehaviour
         SendMessage("OnPanelInitialized", parameters, SendMessageOptions.DontRequireReceiver);
     }
     
-    public void Deinitialize()
+    public void CleanUp()
     {
         SendMessage("OnPanelClosed", SendMessageOptions.DontRequireReceiver);
     }

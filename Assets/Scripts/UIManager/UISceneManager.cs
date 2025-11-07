@@ -55,18 +55,7 @@ public class UISceneManager : MonoBehaviour
     public void Initialize(UIConfiguration configuration, UIWidgetController widgetLayout, AudioSource audioSource = null)
     {
         UIConfiguration = configuration;
-        AudioPlayer = audioSource;
-
-        var holderPrefab = UIConfiguration.PanelHolders[UIConfiguration.BlackeningPrefab.PanelHolderType];
-        var holder = Instantiate(holderPrefab, MainCanvas.transform);
-        var blackeningObject = Instantiate(UIConfiguration.BlackeningPrefab.gameObject, holder.HolderTransform);
-        UIPanel blackeningPanel = blackeningObject.GetComponent<UIPanel>();
-        if (blackeningPanel != null)
-        {
-            blackeningPanel.Initialize(null, holder, null);
-            holder.Initialize(blackeningPanel);
-        }
-        blackeningPanel.gameObject.SetActive(false);
+        AudioPlayer = audioSource;        
 
         for (int i = 0; i < (int)UICanvasLayer.Count; i++)
         {
@@ -79,7 +68,6 @@ public class UISceneManager : MonoBehaviour
             rectTransform.anchorMax = Vector2.one;
             rectTransform.offsetMin = Vector2.zero;
             rectTransform.offsetMax = Vector2.zero;
-
             canvasLayers.Add(canvas);
         }
 
@@ -89,6 +77,7 @@ public class UISceneManager : MonoBehaviour
 
         widgetController = Instantiate(widgetLayout, canvasLayers[(int)UICanvasLayer.Widget].transform);
         widgetController.Initialize(UIConfiguration, statusController);
+        var blackeningPanel = createBlackeningPanel(widgetController.transform);
 
         panelController = gameObject.AddComponent<UIPanelController>();
         panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningPanel, statusController, AudioPlayer);
@@ -121,6 +110,18 @@ public class UISceneManager : MonoBehaviour
     {
         UIPanel prefab = UIConfiguration.GetPanel(name);
         panelController.PushPanel(prefab, parameters);
+    }
+
+    private UIWidget createBlackeningPanel(Transform parent)
+    {
+        var holderPrefab = UIConfiguration.WidgetHolders[UIConfiguration.BlackeningPrefab.WidgetHolderType];
+        var blackening = Instantiate(UIConfiguration.BlackeningPrefab, parent);
+        if (blackening != null)
+        {
+            blackening.Initialize(holderPrefab);
+        }
+        blackening.SetVisibility(false);
+        return blackening;
     }
     #endregion
 
