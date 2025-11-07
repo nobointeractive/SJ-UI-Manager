@@ -23,6 +23,9 @@ MonoBehaviour:
   panelHolders:
   - {fileID: 4033882608916595860, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
   - {fileID: 8934311880829636986, guid: aecdd1de8cd9c4ae497b3d62d61291a5, type: 3}
+  widgetHolders:
+  - {fileID: 7767156317250643774, guid: 7993d7b7dcd824056b8c6ba2360fdeae, type: 3}
+  - {fileID: 7767156317250643774, guid: 447eb9f2467b4405ba17de399e4b9282, type: 3}
   animators:
   - {fileID: 7653624024412517167, guid: 4f7237563c9e14a539d66b880db47650, type: 3}
   - {fileID: 1731520655893266349, guid: 730918b2b93db45b2aee1eb9cf5ca4cd, type: 3}

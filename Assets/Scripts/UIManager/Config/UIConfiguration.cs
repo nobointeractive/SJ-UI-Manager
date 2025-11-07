@@ -6,6 +6,7 @@ public class UIConfiguration : ScriptableObject
 {
     [SerializeField] private List<UIPanel> panels;
     [SerializeField] private List<UIPanelHolder> panelHolders;
+    [SerializeField] private List<UIWidgetHolder> widgetHolders;
     [SerializeField] private List<UIAnimator> animators;
     [SerializeField] private List<UIFlyer> flyers;
     [SerializeField] private List<UIAudioSet> audioSets;
@@ -18,6 +19,7 @@ public class UIConfiguration : ScriptableObject
 
     public List<UIPanel> Panels => panels;
     public List<UIPanelHolder> PanelHolders => panelHolders;
+    public List<UIWidgetHolder> WidgetHolders => widgetHolders;
     public List<UIAnimator> Animators => animators;
     public List<UIFlyer> Flyers => flyers;
     public UIAnimatable BlackeningPrefab => blackeningPrefab;

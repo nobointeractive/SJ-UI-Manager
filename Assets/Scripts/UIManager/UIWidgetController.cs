@@ -17,9 +17,7 @@ public class UIWidgetController : MonoBehaviour
 
         foreach (UIWidget widget in widgets)
         {
-            UIAnimator appearanceAnimator = UIConfiguration.GetAnimator(widget.AppearanceAnimation);
-            UIAnimator flyerAnimator = UIConfiguration.GetAnimator(widget.FlyerAnimation);
-            widget.Initialize(appearanceAnimator, flyerAnimator);
+            widget.Initialize(UIConfiguration.WidgetHolders[widget.WidgetHolderType]);
         }
     }
 

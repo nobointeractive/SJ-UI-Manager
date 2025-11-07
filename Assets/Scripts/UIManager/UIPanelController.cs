@@ -123,6 +123,7 @@ public class UIPanelController : MonoBehaviour
         panel.Initialize(this, holder, parameters);
         holder.Initialize(panel);
         panelStack.Add(panel);
+        
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
         animationTimeout = holder.AnimateShow();

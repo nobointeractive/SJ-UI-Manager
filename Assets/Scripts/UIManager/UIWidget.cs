@@ -9,25 +9,46 @@ public enum UIWidgetVisibleState
     Visible = 1
 }
 
-public class UIWidget : UIAnimatable
+public class UIWidget : MonoBehaviour
 {
     [Header("Settings")]
+    [IntDropdown("PanelHolderTypes")]
+    public int WidgetHolderType;
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
-    [SerializeField] private Transform flyerTarget;   
+    [SerializeField] private Transform root;
+    [SerializeField] private Transform flyerTarget;
 
     public bool IsAvailable = true; 
+    
+    public UIWidgetHolder WidgetHolder => widgetHolder;
 
     private UIWidgetVisibleState isVisible = UIWidgetVisibleState.Unknown;
     private UIWidgetVisibleState nextIsVisible = UIWidgetVisibleState.Unknown;
     private bool isKeepingVisible = false;
     private float animationTimeout = 0f;
+    private UIWidgetHolder widgetHolder;
 
-    public void Initialize(UIAnimator appearanceAnimator, UIAnimator flyerAnimator)
+    public void Initialize(UIWidgetHolder holderPrefab)
     {
-        AttachAppearanceAnimator(appearanceAnimator);
-        AttachFlyerAnimator(flyerAnimator);
+        UIWidgetHolder holderInstance = Instantiate(holderPrefab, transform);
+        widgetHolder = holderInstance;
+
+        // Make widgetHolder rect transform center in this UIWidget rect transform
+        RectTransform holderRect = widgetHolder.GetComponent<RectTransform>();
+        holderRect.anchorMin = Vector2.zero;
+        holderRect.anchorMax = Vector2.one;
+        holderRect.offsetMin = Vector2.zero;
+        holderRect.offsetMax = Vector2.zero;
+
+        widgetHolder.Initialize();
+        root.SetParent(widgetHolder.HolderTransform, false);        
+
+        isVisible = UIWidgetVisibleState.Unknown;
+        nextIsVisible = UIWidgetVisibleState.Unknown;
+        isKeepingVisible = false;
+        animationTimeout = 0f;
         gameObject.SetActive(IsAvailable);
     }
 
@@ -49,7 +70,7 @@ public class UIWidget : UIAnimatable
             if (isVisible != UIWidgetVisibleState.Visible)
             {
                 isVisible = UIWidgetVisibleState.Visible;
-                animationTimeout = AnimateShow();
+                animationTimeout = WidgetHolder.AnimateShow();
             }
             return;
         }
@@ -63,11 +84,11 @@ public class UIWidget : UIAnimatable
 
                 if (isVisible == UIWidgetVisibleState.Visible)
                 {
-                    animationTimeout = AnimateShow();
+                    animationTimeout = WidgetHolder.AnimateShow();
                 }
                 else
                 {
-                    animationTimeout = AnimateHide();
+                    animationTimeout = WidgetHolder.AnimateHide();
                 }
             }
         }

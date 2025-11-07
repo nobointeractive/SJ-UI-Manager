@@ -125,11 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  animatableTargets:
-  - {fileID: 4253474710851872194}
-  AppearanceAnimation: 4
-  FlyerAnimation: 5
+  WidgetHolderType: 1
   VisibleState: 2
+  root: {fileID: 4253474710851872194}
   flyerTarget: {fileID: 4738416309311970047}
   IsAvailable: 1
 --- !u!114 &4840050570778109251
@@ -193,11 +191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  animatableTargets:
-  - {fileID: 6330795982164467202}
-  AppearanceAnimation: 3
-  FlyerAnimation: 5
+  WidgetHolderType: 1
   VisibleState: 2
+  root: {fileID: 6330795982164467202}
   flyerTarget: {fileID: 8836817824739555271}
   IsAvailable: 1
 --- !u!1 &1351331568676206726
@@ -210,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9018318582229181502}
   m_Layer: 5
-  m_Name: Holder
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +219,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351331568676206726}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -321,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5993291029229945034}
   m_Layer: 5
-  m_Name: Holder
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,11 +392,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  animatableTargets:
-  - {fileID: 9018318582229181502}
-  AppearanceAnimation: 3
-  FlyerAnimation: 5
+  WidgetHolderType: 0
   VisibleState: 6
+  root: {fileID: 9018318582229181502}
   flyerTarget: {fileID: 5052178393282055515}
   IsAvailable: 1
 --- !u!1 &2223805513626529323
@@ -545,7 +539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4253474710851872194}
   m_Layer: 5
-  m_Name: Holder
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,7 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6330795982164467202}
   m_Layer: 5
-  m_Name: Holder
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -749,7 +743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1595278378063214908}
   m_Layer: 5
-  m_Name: Holder
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,11 +820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  animatableTargets:
-  - {fileID: 5993291029229945034}
-  AppearanceAnimation: 4
-  FlyerAnimation: 5
+  WidgetHolderType: 0
   VisibleState: 10
+  root: {fileID: 5993291029229945034}
   flyerTarget: {fileID: 8759739778503459893}
   IsAvailable: 1
 --- !u!114 &2477734233905071270
@@ -1097,10 +1089,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbcd8e1a45fd49cc8cdc9aca923f913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIWidget
-  animatableTargets:
-  - {fileID: 1595278378063214908}
-  AppearanceAnimation: 4
-  FlyerAnimation: 5
+  WidgetHolderType: 0
   VisibleState: 2
+  root: {fileID: 1595278378063214908}
   flyerTarget: {fileID: 5565829048334248797}
   IsAvailable: 1

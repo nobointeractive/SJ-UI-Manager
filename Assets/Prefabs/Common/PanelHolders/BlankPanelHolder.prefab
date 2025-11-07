@@ -196,8 +196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UITacAnimatedPanelHolder
   holderTransform: {fileID: 7899370228547831751}
-  showOrchestrator: {fileID: 0}
-  hideOrchestrator: {fileID: 2073611496925013656}
+  showPlayable: {fileID: 0}
+  hidePlayable: {fileID: 2073611496925013656}
 --- !u!1 &8834385176189563708
 GameObject:
   m_ObjectHideFlags: 0

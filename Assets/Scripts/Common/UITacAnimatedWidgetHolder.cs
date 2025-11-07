@@ -4,7 +4,7 @@ using Aniloom.TAC.Orchestration;
 using DG.Tweening;
 using UnityEngine;
 
-public class UITacAnimatedPanelHolder : UIPanelHolder
+public class UITacAnimatedWidgetHolder : UIWidgetHolder
 {
     [SerializeField] private TacPlayableBase showPlayable;
     [SerializeField] private TacPlayableBase hidePlayable;

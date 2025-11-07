@@ -24,7 +24,7 @@ public class UIFlyerController : MonoBehaviour
         flyerInstance.Initialize();
 
         destination.KeepVisible();
-        departure.AnimateLaunch();        
+        departure.WidgetHolder.AnimateLaunchFlyer();        
         float timeout = flyerInstance.AnimateMoveTo(departure, destination, duration, (hideDuration) =>
         {
             StartCoroutine(LandFlyer(flyerInstance, destination, hideDuration));
@@ -34,7 +34,7 @@ public class UIFlyerController : MonoBehaviour
 
     private IEnumerator LandFlyer(UIFlyer flyerInstance, UIWidget destination, float hideDuration)
     {
-        float landDuration = destination.AnimateLand();
+        float landDuration = destination.WidgetHolder.AnimateLandFlyer();
         yield return new WaitForSeconds(Mathf.Max(landDuration, hideDuration));
         destination.StopKeepingVisible();
 

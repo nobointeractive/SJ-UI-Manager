@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlainUIPanelHolder
   holderTransform: {fileID: 3891052286080087582}
-  showOrchestrator: {fileID: 7909031963314830005}
-  hideOrchestrator: {fileID: 7250197291777675888}
+  showPlayable: {fileID: 7909031963314830005}
+  hidePlayable: {fileID: 7250197291777675888}
   titleText: {fileID: 6475816903396246836}
 --- !u!1 &2855405687436226176
 GameObject:
