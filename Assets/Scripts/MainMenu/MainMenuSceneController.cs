@@ -13,11 +13,12 @@ public class MainMenuSceneController : MonoBehaviour
 {
     public UIConfiguration uiConfiguration;
     public UIWidgetController widgetLayout;
+    public AudioSource audioSource;
 
     void Awake()
     {
         // Initialize the UISceneManager with configuration and widget layout prefab
-        UISceneManager.Instance.Initialize(uiConfiguration, widgetLayout);
+        UISceneManager.Instance.Initialize(uiConfiguration, widgetLayout, audioSource);
 
         // Hide the widget layout at the start
         UISceneManager.Instance.SetLayoutState((int)UIWidgetLayoutState.HideAll);

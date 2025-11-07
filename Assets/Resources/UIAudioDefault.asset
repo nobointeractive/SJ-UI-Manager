@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038dcfa205c96419da4ce73185d64d45, type: 3}
   m_Name: UIAudioDefault
   m_EditorClassIdentifier: UIManager::UIAudioSet
-  Open: {fileID: 8300000, guid: 3bc5b65c013e54bb280c2dbb1035dbf1, type: 3}
-  Close: {fileID: 8300000, guid: 3bc5b65c013e54bb280c2dbb1035dbf1, type: 3}
+  Open: {fileID: 8300000, guid: 5fd7fa5869c874f5abb4e3d7fdd2755c, type: 3}
+  Close: {fileID: 8300000, guid: 5fd7fa5869c874f5abb4e3d7fdd2755c, type: 3}
   Launch: {fileID: 8300000, guid: 3bc5b65c013e54bb280c2dbb1035dbf1, type: 3}
   Land: {fileID: 8300000, guid: 3bc5b65c013e54bb280c2dbb1035dbf1, type: 3}
   PositiveClick: {fileID: 8300000, guid: 3bc5b65c013e54bb280c2dbb1035dbf1, type: 3}

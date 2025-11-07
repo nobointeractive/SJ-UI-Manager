@@ -24,6 +24,9 @@ public class UIPanel : MonoBehaviour
     [IntDropdown("WidgetLayoutStates")]
     public int WidgetLayoutState;
 
+    [IntDropdown("AudioSetTypes")]
+    public int AudioSetType;
+
     [SerializeField] private List<UIKeyValuePair> staticParameters = new List<UIKeyValuePair>();
     private Dictionary<string, string> _staticParametersDict;
     public Dictionary<string, string> StaticParameters

@@ -8,14 +8,16 @@ public class UIFlyerController : MonoBehaviour
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
     public UIStatusController StatusController { get; private set; }
+    public AudioSource AudioPlayer { get; private set; }
 
-    private Dictionary<string, Stack<UIFlyer>> flyersPool = new Dictionary<string, Stack<UIFlyer>>();
+    private Dictionary<string, Stack<UIFlyer>> flyersPool = new Dictionary<string, Stack<UIFlyer>>();    
 
-    public void Initialize(UIConfiguration configuration, Canvas overlayCanvas, UIStatusController statusController)
+    public void Initialize(UIConfiguration configuration, Canvas overlayCanvas, UIStatusController statusController, AudioSource audioSource = null)
     {
         UIConfiguration = configuration;
         MainCanvas = overlayCanvas;
         StatusController = statusController;
+        AudioPlayer = audioSource;
     }
 
     public void Play(UIFlyer prefab, UIWidget departure, UIWidget destination, float duration)
@@ -25,11 +27,14 @@ public class UIFlyerController : MonoBehaviour
 
         destination.KeepVisible();
         if (departure.WidgetHolder != null)
+        {
             departure.WidgetHolder.AnimateLaunchFlyer();
+            AudioPlayer?.PlayOneShot(UIConfiguration.AudioSets[departure.AudioSetType].Launch);
+        }
 
         flyerInstance.FlyerHolder.AnimateShow();
         float timeout = flyerInstance.FlyerHolder.AnimateMoveTo(departure, destination, duration, () =>
-        {            
+        {
             StartCoroutine(LandFlyer(flyerInstance, destination));
         });
         StatusController.TrackAnimationEndingTime(timeout);
@@ -37,8 +42,9 @@ public class UIFlyerController : MonoBehaviour
 
     private IEnumerator LandFlyer(UIFlyer flyerInstance, UIWidget destination)
     {
-        float hideDuration = flyerInstance.FlyerHolder.AnimateHide();        
+        float hideDuration = flyerInstance.FlyerHolder.AnimateHide();
         float landDuration = destination.WidgetHolder != null ? destination.WidgetHolder.AnimateLandFlyer() : 0f;
+        AudioPlayer?.PlayOneShot(UIConfiguration.AudioSets[destination.AudioSetType].Land);
         yield return new WaitForSeconds(Mathf.Max(landDuration, hideDuration));
         destination.StopKeepingVisible();
 

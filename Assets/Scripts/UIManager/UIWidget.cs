@@ -18,6 +18,9 @@ public class UIWidget : MonoBehaviour
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
+    [IntDropdown("AudioSetTypes")]
+    public int AudioSetType;
+
     [SerializeField] private Transform root;
     [SerializeField] private Transform[] flyerTargets;
 

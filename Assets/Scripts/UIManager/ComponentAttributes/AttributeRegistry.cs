@@ -20,6 +20,7 @@ public static class AttributeRegistry
     private static List<DropdownEntry> cachedFlyerHolderTypes = null;
     private static List<DropdownEntry> cachedWidgetHolderTypes = null;
     private static List<DropdownEntry> cachedWidgetLayoutStates = null;
+    private static List<DropdownEntry> cachedAudioSetTypes = null;
 
     public static void Reload()
     {
@@ -39,6 +40,7 @@ public static class AttributeRegistry
                 cachedFlyerHolderTypes = null;
                 cachedWidgetHolderTypes = null;
                 cachedWidgetLayoutStates = null;
+                cachedAudioSetTypes = null;
             }
         }
         catch (Exception e)
@@ -91,6 +93,19 @@ public static class AttributeRegistry
             }
             return cachedWidgetLayoutStates;
         }     
+        else if (providerName == "AudioSetTypes")
+        {
+            if (cachedAudioSetTypes == null)
+            {
+                cachedAudioSetTypes = new List<DropdownEntry>();
+                var audioSets = data.AudioSets;
+                for (int i = 0; i < audioSets.Count; i++)
+                {
+                    cachedAudioSetTypes.Add(new DropdownEntry { label = audioSets[i].name, value = i });
+                }
+            }
+            return cachedAudioSetTypes;
+        }
 
         return null;
     }

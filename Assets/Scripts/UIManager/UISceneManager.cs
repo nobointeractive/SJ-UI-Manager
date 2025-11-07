@@ -83,7 +83,7 @@ public class UISceneManager : MonoBehaviour
         panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningPanel, statusController, AudioPlayer);
 
         flyerController = gameObject.AddComponent<UIFlyerController>();
-        flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController);
+        flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController, audioSource);
     }
     #endregion
 

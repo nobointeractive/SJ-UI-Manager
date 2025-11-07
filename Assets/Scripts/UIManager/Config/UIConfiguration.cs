@@ -25,6 +25,7 @@ public class UIConfiguration : ScriptableObject
     public List<UIFlyerHolder> FlyerHolders => flyerHolders;
     public UIWidget BlackeningPrefab => blackeningPrefab;
     public string[] WidgetLayoutStates => widgetLayoutStates;
+    public List<UIAudioSet> AudioSets => audioSets;
 
     public UIPanel GetPanel(string name)
     {

@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPanel
   PanelHolderType: 0
-  AppearanceAnimation: 1
   WidgetLayoutState: 1
+  AudioSetType: 1
   staticParameters: []
 --- !u!114 &1768117454339122764
 MonoBehaviour:

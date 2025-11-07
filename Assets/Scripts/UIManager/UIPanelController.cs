@@ -110,6 +110,7 @@ public class UIPanelController : MonoBehaviour
             {
                 prevPanel.VisibilityState = UIPanelVisibilityState.Hidden;
                 animationTimeout = prevPanel.PanelHolder.AnimateHide();
+                playClosePanelSound(prevPanel);
                 StatusController.TrackAnimationEndingTime(animationTimeout);
                 if (animationTimeout > 0f)
                 {
@@ -130,6 +131,7 @@ public class UIPanelController : MonoBehaviour
         animationTimeout = holder.AnimateShow();
         StatusController.TrackAnimationEndingTime(animationTimeout);
         WidgetLayout.SetLayoutState(panel.WidgetLayoutState);
+        playOpenPanelSound(panel);
 
         if (!isBlackeningShown)
         {
@@ -162,6 +164,7 @@ public class UIPanelController : MonoBehaviour
             panel.CleanUp();
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
             animationTimeout = panel.PanelHolder.AnimateHide();
+            playClosePanelSound(panel);
             StatusController.TrackAnimationEndingTime(animationTimeout);
 
             delayBeforeShowingNext = animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations;
@@ -182,6 +185,7 @@ public class UIPanelController : MonoBehaviour
             animationTimeout = Mathf.Max(delayBeforeDone, showTimeout);
             StatusController.TrackAnimationEndingTime(animationTimeout);
             WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
+            playOpenPanelSound(topPanel);
         }
         else
         {
@@ -338,6 +342,20 @@ public class UIPanelController : MonoBehaviour
     {
         isBlackeningShown = false;
         BlackeningLayer.SetVisibility(false);
+    }
+    #endregion
+
+    #region Audio Methods
+    private void playOpenPanelSound(UIPanel panel)
+    {
+        if (AudioPlayer == null) return;
+        AudioPlayer.PlayOneShot(UIConfiguration.AudioSets[panel.AudioSetType].Open);
+    }
+
+    private void playClosePanelSound(UIPanel panel)
+    {
+        if (AudioPlayer == null) return;
+        AudioPlayer.PlayOneShot(UIConfiguration.AudioSets[panel.AudioSetType].Close);
     }
     #endregion
 }
