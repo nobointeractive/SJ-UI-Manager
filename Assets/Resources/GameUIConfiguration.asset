@@ -21,8 +21,8 @@ MonoBehaviour:
   - {fileID: 5152494583042993419, guid: 7c99b9687e9fc4871aa754ce3311da95, type: 3}
   - {fileID: 5152494583042993419, guid: 95f4691e22557463d8ecdd8bb786d2f0, type: 3}
   panelHolders:
-  - {fileID: 5687334237881962354, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
-  - {fileID: 3839705701060809302, guid: 287019c71d5ee4a2f8d745afcfed2394, type: 3}
+  - {fileID: 4033882608916595860, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
+  - {fileID: 8934311880829636986, guid: aecdd1de8cd9c4ae497b3d62d61291a5, type: 3}
   animators:
   - {fileID: 7653624024412517167, guid: 4f7237563c9e14a539d66b880db47650, type: 3}
   - {fileID: 1731520655893266349, guid: 730918b2b93db45b2aee1eb9cf5ca4cd, type: 3}

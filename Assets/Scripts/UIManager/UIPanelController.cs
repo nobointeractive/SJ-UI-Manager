@@ -121,7 +121,7 @@ public class UIPanelController : MonoBehaviour
         UIPanelHolder holder = createNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
         UIPanel panel = createNewPanelInstance(prefab, holder.HolderTransform);        
         panel.Initialize(this, holder, parameters);
-        holder.Initialize(UIConfiguration.GetAnimator(prefab.AppearanceAnimation, holder.AppearanceAnimation), panel);
+        holder.Initialize(panel);
         panelStack.Add(panel);
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
@@ -153,15 +153,19 @@ public class UIPanelController : MonoBehaviour
             topPanel = panelStack[panelStack.Count - 1];
         }
 
+        float delayBeforeShowingNext;
+        float delayBeforeDone = 0f;
         if (panel.VisibilityState == UIPanelVisibilityState.Shown)
-        {            
+        {
             panel.Deinitialize();
             panel.VisibilityState = UIPanelVisibilityState.Hidden;
             animationTimeout = panel.PanelHolder.AnimateHide();
 
             StatusController.TrackAnimationEndingTime(animationTimeout);
-            yield return new WaitForSeconds(animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations);
-            panelsToRemove.Add(panel);
+
+            delayBeforeShowingNext = animationTimeout * UIConfiguration.PanelDelayTimeScaleBetweenAnimations;
+            delayBeforeDone = animationTimeout - delayBeforeShowingNext;
+            yield return new WaitForSeconds(delayBeforeShowingNext);            
         }
         else if (panel.VisibilityState == UIPanelVisibilityState.Hidden)
         {
@@ -177,7 +181,12 @@ public class UIPanelController : MonoBehaviour
             StatusController.TrackAnimationEndingTime(animationTimeout);
             WidgetLayout.SetLayoutState(topPanel.WidgetLayoutState);
         }
+        else
+        {
+            yield return new WaitForSeconds(delayBeforeDone);
+        }
 
+        panelsToRemove.Add(panel);
         isRunningTransition = false;
     }
     
@@ -188,7 +197,7 @@ public class UIPanelController : MonoBehaviour
             UIPanelHolder holder = createNewPanelHolderInstance((int)prefab.PanelHolderType, MainCanvas.transform);
             UIPanel panel = createNewPanelInstance(prefab, holder.HolderTransform);
             panel.Initialize(this, holder, parameters);
-            holder.Initialize(UIConfiguration.GetAnimator(prefab.AppearanceAnimation, holder.AppearanceAnimation), panel);
+            holder.Initialize(panel);
             panelStack.Insert(0, panel);
 
             panel.VisibilityState = UIPanelVisibilityState.Hidden;

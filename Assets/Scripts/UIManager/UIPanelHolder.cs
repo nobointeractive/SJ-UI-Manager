@@ -1,39 +1,32 @@
 using UnityEngine;
 
-public class UIPanelHolder : UIAnimatable
+public class UIPanelHolder : MonoBehaviour
 {
     [SerializeField] private Transform holderTransform;
     public Transform HolderTransform => holderTransform;
 
     protected UIPanel panel;
 
-    public virtual void Initialize(UIAnimator animator, UIPanel panel)
+    public virtual void Initialize(UIPanel panel)
     {
         gameObject.SetActive(true);
-
         this.panel = panel;
-        AttachAppearanceAnimator(animator);
-
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
-
-        foreach (var target in AnimatableTargets)
-        {
-            target.localPosition = Vector3.zero;
-            target.localRotation = Quaternion.identity;
-            target.localScale = Vector3.one;
-
-            var cg = target.GetComponent<CanvasGroup>();
-            if (cg != null)
-            {
-                cg.alpha = 1;
-            }
-        }
     }
 
     public void ClosePanel()
     {
         panel?.ClosePanel();
+    }
+
+    public virtual float AnimateShow()
+    {
+        gameObject.SetActive(true);
+        return 0f;
+    }
+
+    public virtual float AnimateHide()
+    {
+        gameObject.SetActive(false);
+        return 0f;
     }
 }

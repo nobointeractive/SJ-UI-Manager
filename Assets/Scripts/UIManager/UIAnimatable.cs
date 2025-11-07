@@ -11,6 +11,14 @@ public class UIAnimatable : MonoBehaviour
     public UIAnimator AppearanceAnimator { get; private set; }
 
     [IntDropdown("AnimationTypes")]
+    public int ShowAnimation;
+    public UIAnimator ShowAnimator { get; set; }
+
+    [IntDropdown("AnimationTypes")]
+    public int HideAnimation;
+    public UIAnimator HideAnimator { get; set; }
+
+    [IntDropdown("AnimationTypes")]
     public int FlyerAnimation;
     public UIAnimator FlyerAnimator { get; private set; }
 

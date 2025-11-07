@@ -1,14 +1,14 @@
 using UnityEngine;
 using TMPro;
 
-public class PlainUIPanelHolder : UIPanelHolder
+public class PlainUIPanelHolder : UITacAnimatedPanelHolder
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI titleText;
 
-    public override void Initialize(UIAnimator animator, UIPanel panel)
+    public override void Initialize( UIPanel panel)
     {
-        base.Initialize(animator, panel);
+        base.Initialize(panel);
 
         // Set the title if provided in static parameters of the panel data
         var staticParameters = panel.StaticParameters;

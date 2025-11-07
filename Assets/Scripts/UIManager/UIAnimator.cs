@@ -6,6 +6,16 @@ public class UIAnimator : MonoBehaviour
 {
     public GameObject OriginalPrefab { get; set; }
 
+    public virtual UIAnimator AttachTo(UIAnimatable animatable)
+    {
+        return this;
+    }
+
+    public virtual float Animate()
+    {
+        return 0;
+    }
+
     public virtual void Initialize(UIAnimatable animatable)
     {
     }

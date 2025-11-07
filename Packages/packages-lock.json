@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.aniloom.tac": {
+      "version": "https://gitlab.com/aniloom/aniloom-tac.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "9b0e36e4a3a570d7549a4c41355f029b3a4a0691"
+    },
     "com.unity.2d.animation": {
       "version": "12.0.2",
       "depth": 1,
