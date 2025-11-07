@@ -744,7 +744,7 @@ MonoBehaviour:
   - {fileID: 3989347039477784792}
   staggerSeconds: 0
   staggerSerializationVersion: 1
-  duration: 1
+  duration: 2
   fromPoints: []
   fromHandles: []
   toPoints: []

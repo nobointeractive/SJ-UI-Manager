@@ -19,7 +19,7 @@ public class UIWidget : MonoBehaviour
     public int VisibleState;
 
     [SerializeField] private Transform root;
-    [SerializeField] private Transform flyerTarget;
+    [SerializeField] private Transform[] flyerTargets;
 
     public bool IsAvailable = true; 
     
@@ -126,14 +126,13 @@ public class UIWidget : MonoBehaviour
         isKeepingVisible = false;
     }
 
-    public Transform FlyerTarget
+    public Transform GetFlyerTarget(int index)
     {
-        get
+        if (flyerTargets != null && index >= 0 && index < flyerTargets.Length)
         {
-            if (flyerTarget != null)
-                return flyerTarget;
-            
-            return this.transform;
+            return flyerTargets[index];
         }
+
+        return transform;
     }
 }

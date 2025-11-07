@@ -59,8 +59,10 @@ public class UITacAnimatedFlyerHolder : UIFlyerHolder
         }
         else if (playable is TacMoveFromToController moveFromTo)
         {
-            moveFromTo.fromPoints = new Transform[] { departure.transform };
-            moveFromTo.toPoints = new Transform[] { destination.transform };
+            moveFromTo.fromPoints = new Transform[] { departure.GetFlyerTarget(0) };
+            moveFromTo.fromHandles = new Transform[] { departure.GetFlyerTarget(1) };
+            moveFromTo.toPoints = new Transform[] { destination.GetFlyerTarget(0) };
+            moveFromTo.toHandles = new Transform[] { destination.GetFlyerTarget(1) };
         }
     }
 }
