@@ -26,6 +26,7 @@ MonoBehaviour:
   panelHolders:
   - {fileID: 4033882608916595860, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
   - {fileID: 8934311880829636986, guid: aecdd1de8cd9c4ae497b3d62d61291a5, type: 3}
+  - {fileID: 4033882608916595860, guid: bcb9f745dead3495c8c4a6fd16d7b4b0, type: 3}
   widgetHolders:
   - {fileID: 7767156317250643774, guid: 7993d7b7dcd824056b8c6ba2360fdeae, type: 3}
   - {fileID: 7767156317250643774, guid: 447eb9f2467b4405ba17de399e4b9282, type: 3}
@@ -42,6 +43,6 @@ MonoBehaviour:
   audioSets:
   - {fileID: 11400000, guid: 0f3df4332474e4ce88d6312a7e0c8722, type: 2}
   - {fileID: 11400000, guid: 3e120c481131d41819e4335e98f03fb8, type: 2}
-  blackeningPrefab: {fileID: 842370530415135841, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
+  blackeningPrefab: {fileID: -4743707348348901433, guid: b0895fb3d57aa4e638a3e5b3c7ba1b6f, type: 3}
   DefaultWidgetLayoutState: 2
   PanelDelayTimeScaleBetweenAnimations: 0.5

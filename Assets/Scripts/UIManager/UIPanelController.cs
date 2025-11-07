@@ -29,7 +29,7 @@ public class UIPanelController : MonoBehaviour
     public Canvas MainCanvas { get; private set; }
     public UIConfiguration UIConfiguration { get; private set; }
     public UIWidgetController WidgetLayout { get; private set; }
-    public UIAnimatable BlackeningLayer { get; private set; }
+    public UIPanel BlackeningLayer { get; private set; }
     public UIStatusController StatusController { get; private set; }
 
     private List<UIPanel> panelStack = new List<UIPanel>();
@@ -66,12 +66,12 @@ public class UIPanelController : MonoBehaviour
     #endregion
 
     #region Initialization Methods
-    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIAnimatable blackeningAnimatable, UIStatusController statusController, AudioSource audioSource)
+    public void Initialize(UIConfiguration uiConfiguration, Canvas mainCanvas, UIWidgetController widgetLayout, UIPanel blackeningPanel, UIStatusController statusController, AudioSource audioSource)
     {
         UIConfiguration = uiConfiguration;
         MainCanvas = mainCanvas;
         WidgetLayout = widgetLayout;
-        BlackeningLayer = blackeningAnimatable;
+        BlackeningLayer = blackeningPanel;
         AudioPlayer = audioSource;
         StatusController = statusController;
     }
@@ -311,9 +311,9 @@ public class UIPanelController : MonoBehaviour
         {
             panel = Instantiate(prefab, parent);
             panel.name = prefab.name;
-            panel.gameObject.SetActive(true);
         }
 
+        panel.gameObject.SetActive(true);
         return panel;
     }
     #endregion
@@ -323,13 +323,14 @@ public class UIPanelController : MonoBehaviour
     public void ShowBlackening()
     {
         isBlackeningShown = true;
-        BlackeningLayer.AnimateShow();
+        BlackeningLayer.gameObject.SetActive(true);
+        BlackeningLayer.PanelHolder.AnimateShow();
     }
 
     public void HideBlackening()
     {
         isBlackeningShown = false;
-        BlackeningLayer.AnimateHide();
+        BlackeningLayer.PanelHolder.AnimateHide();
     }
     #endregion
 }

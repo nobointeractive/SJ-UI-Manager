@@ -1,7 +1,8 @@
 {
     "PanelHolderTypes": [
         { "label": "Blank", "value": 0 },
-        { "label": "Plain", "value": 1 }
+        { "label": "Plain", "value": 1 },
+        { "label": "Dimmed", "value": 2 }
     ],
     "AnimationTypes": [
         { "label": "None", "value": 0 },

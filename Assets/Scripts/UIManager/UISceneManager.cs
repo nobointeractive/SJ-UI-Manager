@@ -57,13 +57,16 @@ public class UISceneManager : MonoBehaviour
         UIConfiguration = configuration;
         AudioPlayer = audioSource;
 
-        var blackeningObject = Instantiate(configuration.BlackeningPrefab.gameObject, MainCanvas.transform);
-        UIAnimatable blackeningAnimatable = blackeningObject.GetComponent<UIAnimatable>();
-        if (blackeningAnimatable != null)
+        var holderPrefab = UIConfiguration.PanelHolders[UIConfiguration.BlackeningPrefab.PanelHolderType];
+        var holder = Instantiate(holderPrefab, MainCanvas.transform);
+        var blackeningObject = Instantiate(UIConfiguration.BlackeningPrefab.gameObject, holder.HolderTransform);
+        UIPanel blackeningPanel = blackeningObject.GetComponent<UIPanel>();
+        if (blackeningPanel != null)
         {
-            blackeningAnimatable.AttachAppearanceAnimator(UIConfiguration.GetAnimator(blackeningAnimatable.AppearanceAnimation));
+            blackeningPanel.Initialize(null, holder, null);
+            holder.Initialize(blackeningPanel);
         }
-        blackeningAnimatable.gameObject.SetActive(false);
+        blackeningPanel.gameObject.SetActive(false);
 
         for (int i = 0; i < (int)UICanvasLayer.Count; i++)
         {
@@ -88,7 +91,7 @@ public class UISceneManager : MonoBehaviour
         widgetController.Initialize(UIConfiguration, statusController);
 
         panelController = gameObject.AddComponent<UIPanelController>();
-        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningAnimatable, statusController, AudioPlayer);
+        panelController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Panel], widgetController, blackeningPanel, statusController, AudioPlayer);
 
         flyerController = gameObject.AddComponent<UIFlyerController>();
         flyerController.Initialize(configuration, canvasLayers[(int)UICanvasLayer.Overlay], statusController);

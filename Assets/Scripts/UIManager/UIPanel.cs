@@ -73,7 +73,7 @@ public class UIPanel : MonoBehaviour
     #region Public Methods
     public void ClosePanel()
     {
-        panelController.ClosePanel(this);
+        panelController?.ClosePanel(this);
     }
     #endregion
 

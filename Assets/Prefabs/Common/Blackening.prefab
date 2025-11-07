@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3786015800872686568}
   - component: {fileID: 235366052890251984}
   - component: {fileID: 8598736803073901441}
-  - component: {fileID: 842370530415135841}
+  - component: {fileID: -4743707348348901433}
   m_Layer: 5
   m_Name: Blackening
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &842370530415135841
+--- !u!114 &-4743707348348901433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,11 +85,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6539956857196400323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30945cacdc85444a9c41030a7c7aba9, type: 3}
+  m_Script: {fileID: 11500000, guid: a3920fec217824c7cb463a79764e2c46, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIAnimatable
-  animatableTargets:
-  - {fileID: 3786015800872686568}
-  holderTransform: {fileID: 0}
-  flyerTarget: {fileID: 0}
-  AppearanceAnimation: 1
+  m_EditorClassIdentifier: UIManager::UIPanel
+  PanelHolderType: 2
+  WidgetLayoutState: 1
+  staticParameters: []
