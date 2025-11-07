@@ -20,12 +20,17 @@ MonoBehaviour:
   - {fileID: 5152494583042993419, guid: 222b82a5e1c7c4e82baf334e910a7eb5, type: 3}
   - {fileID: 5152494583042993419, guid: 7c99b9687e9fc4871aa754ce3311da95, type: 3}
   - {fileID: 5152494583042993419, guid: 95f4691e22557463d8ecdd8bb786d2f0, type: 3}
+  flyers:
+  - {fileID: -2145903462201800228, guid: 19240541f198a4dccaf0eae28dc2047f, type: 3}
+  - {fileID: 6887535942193209987, guid: 6905e9cee74ba4b42b9be24fd58568c9, type: 3}
   panelHolders:
   - {fileID: 4033882608916595860, guid: 18bf7f428aad244b3836595935d1354e, type: 3}
   - {fileID: 8934311880829636986, guid: aecdd1de8cd9c4ae497b3d62d61291a5, type: 3}
   widgetHolders:
   - {fileID: 7767156317250643774, guid: 7993d7b7dcd824056b8c6ba2360fdeae, type: 3}
   - {fileID: 7767156317250643774, guid: 447eb9f2467b4405ba17de399e4b9282, type: 3}
+  flyerHolders:
+  - {fileID: -2392533844139900718, guid: bf578ea839a604b8495a56906b3e5cdf, type: 3}
   animators:
   - {fileID: 7653624024412517167, guid: 4f7237563c9e14a539d66b880db47650, type: 3}
   - {fileID: 1731520655893266349, guid: 730918b2b93db45b2aee1eb9cf5ca4cd, type: 3}
@@ -34,9 +39,6 @@ MonoBehaviour:
   - {fileID: 4701170242263289086, guid: 7d88d56f1e8d34b6aa6837408a8a542d, type: 3}
   - {fileID: 6032333982435247331, guid: 23e93f8271de744188e03c3d4909002d, type: 3}
   - {fileID: 4126968125720359379, guid: b2dd1fa3384e54fbf922dfaca8769463, type: 3}
-  flyers:
-  - {fileID: -2145903462201800228, guid: 19240541f198a4dccaf0eae28dc2047f, type: 3}
-  - {fileID: 6887535942193209987, guid: 6905e9cee74ba4b42b9be24fd58568c9, type: 3}
   audioSets:
   - {fileID: 11400000, guid: 0f3df4332474e4ce88d6312a7e0c8722, type: 2}
   - {fileID: 11400000, guid: 3e120c481131d41819e4335e98f03fb8, type: 2}

@@ -123,7 +123,7 @@ public class UIPanelController : MonoBehaviour
         panel.Initialize(this, holder, parameters);
         holder.Initialize(panel);
         panelStack.Add(panel);
-        
+
         panel.transform.SetAsLastSibling();
         panel.VisibilityState = UIPanelVisibilityState.Shown;
         animationTimeout = holder.AnimateShow();
@@ -254,16 +254,16 @@ public class UIPanelController : MonoBehaviour
             panel.PanelHolder.gameObject.SetActive(false);
             holderPool[holderIndex].Push(panel.PanelHolder);
 
-            var panelName = panel.name;
-            if (!panelPool.ContainsKey(panelName))
+            var panelPrefabName = panel.name;
+            if (!panelPool.ContainsKey(panelPrefabName))
             {
-                panelPool[panelName] = new Stack<UIPanel>();
+                panelPool[panelPrefabName] = new Stack<UIPanel>();
             }
             panel.transform.SetParent(this.transform, false);
 
             panel.gameObject.SetActive(false);
             panel.VisibilityState = UIPanelVisibilityState.Closed;
-            panelPool[panelName].Push(panel);            
+            panelPool[panelPrefabName].Push(panel);            
         }
 
         panelsToRemove.Clear();

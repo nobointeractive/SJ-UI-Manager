@@ -21,20 +21,24 @@ public class UIFlyerController : MonoBehaviour
     public void Play(UIFlyer prefab, UIWidget departure, UIWidget destination, float duration)
     {
         UIFlyer flyerInstance = createFlyerInstance(prefab);
-        flyerInstance.Initialize();
+        flyerInstance.Initialize(UIConfiguration.FlyerHolders[prefab.FlyerHolderType]);
 
         destination.KeepVisible();
-        departure.WidgetHolder.AnimateLaunchFlyer();        
-        float timeout = flyerInstance.AnimateMoveTo(departure, destination, duration, (hideDuration) =>
-        {
-            StartCoroutine(LandFlyer(flyerInstance, destination, hideDuration));
+        if (departure.WidgetHolder != null)
+            departure.WidgetHolder.AnimateLaunchFlyer();
+
+        flyerInstance.FlyerHolder.AnimateShow();
+        float timeout = flyerInstance.FlyerHolder.AnimateMoveTo(departure, destination, duration, () =>
+        {            
+            StartCoroutine(LandFlyer(flyerInstance, destination));
         });
         StatusController.TrackAnimationEndingTime(timeout);
     }
 
-    private IEnumerator LandFlyer(UIFlyer flyerInstance, UIWidget destination, float hideDuration)
+    private IEnumerator LandFlyer(UIFlyer flyerInstance, UIWidget destination)
     {
-        float landDuration = destination.WidgetHolder.AnimateLandFlyer();
+        float hideDuration = flyerInstance.FlyerHolder.AnimateHide();        
+        float landDuration = destination.WidgetHolder != null ? destination.WidgetHolder.AnimateLandFlyer() : 0f;
         yield return new WaitForSeconds(Mathf.Max(landDuration, hideDuration));
         destination.StopKeepingVisible();
 
@@ -60,19 +64,19 @@ public class UIFlyerController : MonoBehaviour
             flyerInstance = Instantiate(prefab, MainCanvas.transform);
         }
 
-        flyerInstance.AttachAppearanceAnimator(UIConfiguration.GetAnimator(flyerInstance.AppearanceAnimation));
-        flyerInstance.AttachFlyerAnimator(UIConfiguration.GetAnimator(flyerInstance.FlyerAnimation));
         flyerInstance.gameObject.SetActive(true);
+        flyerInstance.name = prefab.name;
         return flyerInstance;
     }
-    
+
     private void recycleFlyerInstance(UIFlyer flyerInstance)
     {
-        if (!flyersPool.ContainsKey(flyerInstance.name))
+        string prefabName = flyerInstance.name.Replace("(Clone)", "").Trim();
+        if (!flyersPool.ContainsKey(prefabName))
         {
-            flyersPool[flyerInstance.name] = new Stack<UIFlyer>();
+            flyersPool[prefabName] = new Stack<UIFlyer>();
         }
         flyerInstance.gameObject.SetActive(false);
-        flyersPool[flyerInstance.name].Push(flyerInstance);
+        flyersPool[prefabName].Push(flyerInstance);
     }
 }

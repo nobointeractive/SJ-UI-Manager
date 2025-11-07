@@ -5,10 +5,11 @@ using UnityEngine;
 public class UIConfiguration : ScriptableObject
 {
     [SerializeField] private List<UIPanel> panels;
+    [SerializeField] private List<UIFlyer> flyers;
     [SerializeField] private List<UIPanelHolder> panelHolders;
     [SerializeField] private List<UIWidgetHolder> widgetHolders;
-    [SerializeField] private List<UIAnimator> animators;
-    [SerializeField] private List<UIFlyer> flyers;
+    [SerializeField] private List<UIFlyerHolder> flyerHolders;
+    [SerializeField] private List<UIAnimator> animators;    
     [SerializeField] private List<UIAudioSet> audioSets;
     [SerializeField] private UIAnimatable blackeningPrefab;
 
@@ -18,10 +19,11 @@ public class UIConfiguration : ScriptableObject
     public float PanelDelayTimeScaleBetweenAnimations = 0.5f;
 
     public List<UIPanel> Panels => panels;
+    public List<UIFlyer> Flyers => flyers;
     public List<UIPanelHolder> PanelHolders => panelHolders;
     public List<UIWidgetHolder> WidgetHolders => widgetHolders;
-    public List<UIAnimator> Animators => animators;
-    public List<UIFlyer> Flyers => flyers;
+    public List<UIFlyerHolder> FlyerHolders => flyerHolders;
+    public List<UIAnimator> Animators => animators;    
     public UIAnimatable BlackeningPrefab => blackeningPrefab;
 
     public UIPanel GetPanel(string name)

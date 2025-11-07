@@ -14,6 +14,7 @@ public class UIWidget : MonoBehaviour
     [Header("Settings")]
     [IntDropdown("PanelHolderTypes")]
     public int WidgetHolderType;
+
     [VisibilityDropdown("WidgetLayoutStates")]
     public int VisibleState;
 
@@ -32,15 +33,17 @@ public class UIWidget : MonoBehaviour
 
     public void Initialize(UIWidgetHolder holderPrefab)
     {
-        UIWidgetHolder holderInstance = Instantiate(holderPrefab, transform);
-        widgetHolder = holderInstance;
+        if (widgetHolder == null)
+        {
+            widgetHolder = Instantiate(holderPrefab, transform);
 
-        // Make widgetHolder rect transform center in this UIWidget rect transform
-        RectTransform holderRect = widgetHolder.GetComponent<RectTransform>();
-        holderRect.anchorMin = Vector2.zero;
-        holderRect.anchorMax = Vector2.one;
-        holderRect.offsetMin = Vector2.zero;
-        holderRect.offsetMax = Vector2.zero;
+            // Make widgetHolder rect transform center in this UIWidget rect transform
+            RectTransform holderRect = widgetHolder.GetComponent<RectTransform>();
+            holderRect.anchorMin = Vector2.zero;
+            holderRect.anchorMax = Vector2.one;
+            holderRect.offsetMin = Vector2.zero;
+            holderRect.offsetMax = Vector2.zero;
+        }
 
         widgetHolder.Initialize();
         root.SetParent(widgetHolder.HolderTransform, false);        

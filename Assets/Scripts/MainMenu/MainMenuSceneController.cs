@@ -41,7 +41,7 @@ public class MainMenuSceneController : MonoBehaviour
 
         // Show some panels that are automatically displayed in some cases.
         // PushPanel means they are pushed to the stack and wait for current panel to close before showing.
-        // UISceneManager.Instance.PushPanel("ClaimRewardsPanel");
+        UISceneManager.Instance.PushPanel("ClaimRewardsPanel");
         UISceneManager.Instance.PushPanel("UpdatePanel");
     }
 }
